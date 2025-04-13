@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+enum Chain {
+  ARBITRUM
+  BASE
+  POLYGON
+  ETHERUEM
+}
+
+
+model Contract {
+  id          String                  @id @default(cuid())
+  name        String
+  version     String
+  chain       Chain                   @default(ARBITRUM)
+  chainId     Int
+  order       Int                     @default(1)
+  data        Json?
+  updateName  String?
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+  @@unique([chain, name])
+  @@map("contracts")
+}
+
+model Deployment {
+  id        String                  @id @default(cuid())
+  name      String
+  chain     Chain                   @default(ARBITRUM)
+  chainId   Int
+  lastDeployedContract  String?      
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+  totalFee  BigInt                  @default(0)
+
+  @@unique([name])
+  @@map("deployments")
+}
+
+model DeployedContract {
+  id              String                  @id @default(cuid())
+  deploymentId    String
+  contractId      String
+  address         String
+  fee             BigInt                  @default(0)
+  metadata        Json?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+
+  @@index([deploymentId])
+  @@map("deployedContracts")
+}

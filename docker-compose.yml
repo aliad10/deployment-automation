@@ -1,0 +1,24 @@
+services:
+  local-db:
+    image: postgres:15.3
+    ports:
+      - ${POSTGRES_DEV_PORT:-5436}:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_DEV_USER:-dbUsername}
+      POSTGRES_PASSWORD: ${POSTGRES_DEV_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DEV_DB:-localDb}
+    networks:
+      - postgres
+  test-db:
+    image: postgres:15.3
+    ports:
+      - ${POSTGRES_TEST_PORT:-5435}:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_TEST_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_TEST_DB:-mydb}
+    networks:
+      - postgres
+
+networks:
+  postgres:

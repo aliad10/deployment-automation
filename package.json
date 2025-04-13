@@ -1,0 +1,26 @@
+{
+  "name": "deployment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed:deployment": "node prisma/seed-deployment.js",
+    "seed:contract": "node prisma/seed-contract.js",
+    "docker:up": "docker compose up local-db -d"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "dotenv": "^16.5.0",
+    "ethers": "^6.13.5",
+    "pg": "^8.14.1",
+    "prisma": "^6.6.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-verify": "^2.0.13",
+    "hardhat": "^2.23.0"
+  }
+}
