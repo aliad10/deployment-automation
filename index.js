@@ -1,11 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const { getConstructorValues } = require("./heper");
+const { ethers } = require("ethers");
 
 require("dotenv").config();
-const { log } = require("console");
-const { ethers } = require("ethers");
+
 const fs = require("fs");
-const { getConstructorValues } = require("./heper");
+const prisma = new PrismaClient();
 
 async function main(deploymentName) {
   const deploymentData = await prisma.deployment.findUnique({
@@ -14,135 +14,152 @@ async function main(deploymentName) {
     },
   });
 
+  let contractOrder = 0;
+
+  if (deploymentData.lastDeployedContract) {
+    const latestDeployedContract = await prisma.contract.findUnique({
+      where: {
+        id: deploymentData.lastDeployedContract,
+      },
+    });
+    if (latestDeployedContract) {
+      contractOrder = latestDeployedContract.order;
+    }
+  }
   const contracts = await prisma.contract.findMany({
     where: {
       chain: deploymentData.chain,
       chainId: deploymentData.chainId,
+      order: {
+        gt: contractOrder,
+      },
+    },
+    orderBy: {
+      order: "asc",
     },
   });
 
-  const orderedContracts = contracts.sort((a, b) => a.order - b.order);
   const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
   const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
-  for (const item of orderedContracts) {
-    const artifact = JSON.parse(
-      fs.readFileSync(
-        `./abi/${item.version}/artifacts/${item.name}.sol/${item.name}.json`,
-        "utf8"
-      )
-    );
-    console.log("Deploying contract...");
-    const factory = new ethers.ContractFactory(
-      artifact.abi,
-      artifact.bytecode,
-      wallet
-    );
-    let constractorValues = [];
-    if (item.data) {
-      constractorValues = getConstructorValues(item.data);
-    }
 
-    const contract = await factory.deploy(...constractorValues);
-    await contract.waitForDeployment();
+  for (const item of contracts) {
+    console.log("deploying ... ", item.name);
+    let attempt = 0;
+    const maxRetries = 3;
+    let deployed = false;
 
-    const receipt = await provider.getTransactionReceipt(
-      contract.deploymentTransaction().hash
-    );
+    while (attempt < maxRetries && !deployed) {
+      try {
+        const artifact = JSON.parse(
+          fs.readFileSync(
+            `./abi/${item.version}/artifacts/${item.name}.sol/${item.name}.json`,
+            "utf8"
+          )
+        );
 
-    // Ensure gasUsed exists in the receipt
-    const gasUsed = receipt.gasUsed;
-    if (!gasUsed) {
-      console.error("Failed to retrieve gasUsed from receipt");
-      return;
-    }
-
-    // Retrieve gasPrice, fallback to current network price if not available
-    let gasPrice = receipt.gasPrice;
-    if (!gasPrice) {
-      gasPrice = await provider.getGasPrice();
-    }
-
-    // Convert BigNumber to BigInt for calculation
-    const gasFee = BigInt(gasUsed.toString()) * BigInt(gasPrice.toString());
-    const contractAddress = await contract.getAddress();
-
-    console.log(`✅ Contract deployed at: ${contractAddress}`);
-    //log account balance
-
-    console.log("item", item);
-    if (item.updateName) {
-      const rows = await prisma.contract.findMany({
-        where: {
-          chain: deploymentData.chain,
-          chainId: deploymentData.chainId,
-          AND: [
-            {
-              data: {
-                path: [item.updateName],
-                not: null,
-              },
-            },
-            {
-              data: {
-                path: [item.updateName, "value"],
-                not: null,
-              },
-            },
-          ],
-        },
-      });
-
-      const updates = rows.map((row) => {
-        const updatedData = { ...row.data };
-
-        // Only update if x and x.value exists
-        if (
-          updatedData[item.updateName] &&
-          typeof updatedData[item.updateName] === "object"
-        ) {
-          updatedData[item.updateName].value = contractAddress;
+        const factory = new ethers.ContractFactory(
+          artifact.abi,
+          artifact.bytecode,
+          wallet
+        );
+        let constractorValues = [];
+        if (item.data) {
+          constractorValues = getConstructorValues(item.data);
         }
 
-        return prisma.contract.update({
-          where: { id: row.id },
-          data: { data: updatedData },
+        const contract = await factory.deploy(...constractorValues);
+        await contract.waitForDeployment();
+
+        const receipt = await provider.getTransactionReceipt(
+          contract.deploymentTransaction().hash
+        );
+
+        const gasUsed = receipt.gasUsed;
+        if (!gasUsed) {
+          console.error("Failed to retrieve gasUsed from receipt");
+          return;
+        }
+
+        let gasPrice = receipt.gasPrice;
+        if (!gasPrice) {
+          gasPrice = await provider.getGasPrice();
+        }
+
+        const gasFee = BigInt(gasUsed.toString()) * BigInt(gasPrice.toString());
+        const contractAddress = await contract.getAddress();
+
+        console.log(`✅ Contract deployed at: ${contractAddress}`);
+
+        if (item.updateName) {
+          const rows = await prisma.contract.findMany({
+            where: {
+              chain: deploymentData.chain,
+              chainId: deploymentData.chainId,
+              AND: [
+                {
+                  data: {
+                    path: [item.updateName],
+                    not: null,
+                  },
+                },
+                {
+                  data: {
+                    path: [item.updateName, "value"],
+                    not: null,
+                  },
+                },
+              ],
+            },
+          });
+
+          rows.map((row) => {
+            const updatedData = { ...row.data };
+
+            if (
+              updatedData[item.updateName] &&
+              typeof updatedData[item.updateName] === "object"
+            ) {
+              updatedData[item.updateName].value = contractAddress;
+            }
+
+            return prisma.contract.update({
+              where: { id: row.id },
+              data: { data: updatedData },
+            });
+          });
+        }
+        await prisma.deployment.update({
+          where: { id: deploymentData.id },
+          data: { lastDeployedContract: item.id },
         });
-      });
+        await prisma.deployedContract.create({
+          data: {
+            deploymentId: deploymentData.id,
+            contractId: item.id,
+            address: contractAddress,
+            fee: gasFee,
+          },
+        });
 
-      // Step 3: Execute all updates in parallel
-      const results = await Promise.all(updates);
-      console.log(`Updated ${results.length} rows.`);
+        deployed = true; // success
+      } catch (err) {
+        attempt++;
+        console.error(
+          `❌ Failed to deploy contract [${item.name}] on attempt ${attempt}:`,
+          err
+        );
+
+        if (attempt === maxRetries) {
+          console.error(
+            `🛑 Skipping contract [${item.name}] after ${maxRetries} failed attempts.`
+          );
+        } else {
+          console.log(`🔁 Retrying [${item.name}]...`);
+          await new Promise((r) => setTimeout(r, 3000)); // wait 3 seconds before retry
+        }
+      }
     }
-    await prisma.deployedContract.create({
-      data: {
-        deploymentId: deploymentData.id,
-        contractId: item.id,
-        address: contractAddress,
-        fee: gasFee,
-      },
-    });
   }
-
-  return;
-  //   // Example: Create a new Contract
-  //   const newContract = await prisma.contract.create({
-  //     data: {
-  //       deploymentId: 'some-deployment-id',
-  //       address: '0x1234567890abcdef',
-  //       fee: '0.01',
-  //     },
-  //   });
-  //   console.log('Created contract:', newContract);
-
-  //   // Example: Create a new Deployment
-  //   const newDeployment = await prisma.deployment.create({
-  //     data: {
-  //       name: 'Deployment 1',
-  //     },
-  //   });
-  //   console.log('Created deployment:', newDeployment);
-
-  //log account balance
 }
 
 main("sepolia-deployment")
@@ -150,5 +167,5 @@ main("sepolia-deployment")
     throw e;
   })
   .finally(async () => {
-    // await prisma.$disconnect();
+    await prisma.$disconnect();
   });
