@@ -41,7 +41,6 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "ExternalPositionFactory",
-
       version: "v4",
       updateName: updateName.EXTERNAL_POSITION_FACTORY_ADDRESS,
       order: 4,
@@ -93,7 +92,6 @@ const seedArbitrumContracts = async () => {
 
     {
       name: "GasRelayPaymasterFactory",
-
       version: "v4",
       updateName: updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS,
       order: 6,
@@ -127,7 +125,6 @@ const seedArbitrumContracts = async () => {
 
     {
       name: "FeeManager",
-
       version: "v4",
       updateName: updateName.FEE_MANAGER_ADDRESS,
       order: 8,
@@ -219,7 +216,6 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "ProtocolFeeTracker",
-
       version: "v4",
       updateName: updateName.PROTOCOL_FEE_TRACKER_ADDRESS,
       order: 13,
@@ -232,7 +228,6 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "GlobalConfigLib",
-
       version: "v4",
       updateName: updateName.GLOBAL_CONFIG_LIB_ADDRESS,
       order: 14,
@@ -245,7 +240,6 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "GlobalConfigProxy",
-
       version: "v4",
       order: 15,
       data: {
@@ -263,7 +257,6 @@ const seedArbitrumContracts = async () => {
 
     {
       name: "FundValueCalculator",
-
       version: "v4",
       updateName: updateName.FUND_VALUE_CALCULATOR_ADDRESS,
       order: 16,
@@ -285,7 +278,6 @@ const seedArbitrumContracts = async () => {
 
     {
       name: "FundValueCalculatorRouter",
-
       version: "v4",
       order: 17,
       data: {
@@ -294,12 +286,15 @@ const seedArbitrumContracts = async () => {
           order: 1,
         },
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          // @ts-check: handle this
+
+          value: [],
           order: 2,
           type: "array",
         },
         [updateName.FUND_VALUE_CALCULATOR_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          // @ts-check: handle this
+          value: [],
           order: 3,
           type: "array",
         },
@@ -320,7 +315,7 @@ const seedArbitrumContracts = async () => {
           value: "Aave v3: aTokens",
           order: 2,
         },
-        [updateName.FUND_DEPLOYER_ADDRESS]: {
+        poolAddressProvider: {
           value: "0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb",
           order: 3,
         },
@@ -339,18 +334,15 @@ const seedArbitrumContracts = async () => {
         },
       },
     },
-
     {
       name: "BalancerV2GaugeTokenPriceFeed",
-
       version: "v4",
       order: 20,
     },
 
     {
       name: "BalancerV2StablePoolPriceFeed",
-
-      version: "v4",
+      version: "dev",
       order: 21,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
@@ -370,8 +362,7 @@ const seedArbitrumContracts = async () => {
 
     {
       name: "AaveV3FlashLoanAssetManagerLib",
-
-      version: "v4",
+      version: "dev",
       order: 22,
       updateName: updateName.AAVE_V3_FLASH_LOAN_ASSET_MANAGER_LIB_ADDRESS,
       data: {
@@ -397,7 +388,6 @@ const seedArbitrumContracts = async () => {
       version: "v4",
       updateName: updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS,
       order: 24,
-
       data: {
         constructorData: {
           // @ts-check: handle this
@@ -417,7 +407,6 @@ const seedArbitrumContracts = async () => {
       order: 25,
       data: {
         [updateName.EXTERNAL_POSITION_MANAGER_ADDRESS]: {
-          // @ts-check: handle this
           value: "0x0000000000000000000000000000000000000000",
           order: 1,
         },
@@ -496,6 +485,7 @@ const seedArbitrumContracts = async () => {
           order: 1,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
+          //ts-check  used IValueInterpreter as input
           value: "0x0000000000000000000000000000000000000000",
           order: 2,
         },
@@ -675,7 +665,7 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "DisallowedAdapterIncomingAssetsPolicy",
-      version: "v4",
+      version: "dev",
       order: 43,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
@@ -701,7 +691,7 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "AllowedRedeemersForSpecificAssetsPolicy",
-      version: "v4",
+      version: "dev",
       order: 45,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
@@ -746,7 +736,7 @@ const seedArbitrumContracts = async () => {
       },
     },
     {
-      name: "OnlyUntrackDustOrPricelessAssetsPolicy",
+      name: "CumulativeSlippageTolerancePolicy",
       version: "v4",
       order: 47,
       data: {
@@ -785,7 +775,7 @@ const seedArbitrumContracts = async () => {
       },
     },
     {
-      name: "OnlyUntrackDustOrPricelessAssetsPolicy",
+      name: "OnlyRemoveDustExternalPositionPolicy",
       version: "v4",
       order: 48,
       data: {
@@ -847,7 +837,7 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "AaveV3DebtPositionParser",
-      version: "v4",
+      version: "dev",
       order: 51,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
@@ -917,14 +907,16 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "AaveV3DebtPositionLib",
-      version: "v4",
+      version: "dev",
       order: 55,
       data: {
         dataProviderAddress: {
+          //ts-check IAaveV3ProtocolDataProvider interface
           value: "0x69FA688f1Dc47d4B5d8029D5a35FB7a548310654",
           order: 1,
         },
         lendingPoolAddressProviderAddress: {
+          //ts-check IAaveV3PoolAddressProvider interface
           value: "0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb",
           order: 2,
         },
@@ -933,6 +925,7 @@ const seedArbitrumContracts = async () => {
           order: 3,
         },
         rewardsControllerAddress: {
+          //ts-check IAaveV3RewardsController interface
           value: "0x929EC64c34a17401F460460D4B9390518E5B473e",
           order: 4,
         },
@@ -940,7 +933,7 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "ParaSwapV5Adapter",
-      version: "v4",
+      version: "dev",
       order: 56,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
@@ -967,7 +960,7 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "GMXV2LeverageTradingPositionParser",
-      version: "v4",
+      version: "dev",
       order: 57,
       data: {
         wrappedNativeTokenAddress: {
@@ -979,6 +972,7 @@ const seedArbitrumContracts = async () => {
           order: 2,
         },
         readerAddress: {
+          //ts-check IGMXV2Reader interface
           value: "0x5Ca84c34a381434786738735265b9f3FD814b824",
           order: 3,
         },
@@ -1022,7 +1016,7 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "TransferAssetsAdapter",
-      version: "v4",
+      version: "dev",
       order: 62,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
@@ -1033,7 +1027,7 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "DispatcherOwnedBeaconFactory",
-      version: "v4",
+      version: "dev",
       order: 63,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
@@ -1061,6 +1055,7 @@ const seedArbitrumContracts = async () => {
           order: 2,
         },
         wrappedNativeAssetAddress: {
+          //ts-check IWETH interface
           value: constructorData.ARBITRUM.WETH,
           order: 3,
         },
@@ -1069,26 +1064,31 @@ const seedArbitrumContracts = async () => {
 
     {
       name: "GMXV2LeverageTradingPositionLib",
-      version: "v4",
+      version: "dev",
       order: 65,
       data: {
         wrappedNativeTokenAddress: {
+          //ts-check IWETH interface
           value: constructorData.ARBITRUM.WETH,
           order: 1,
         },
         dataStoreAddress: {
+          //ts-check IGMXV2DataStore interface
           value: "0xFD70de6b91282D8017aA4E741e9Ae325CAb992d8",
           order: 2,
         },
         chainlinkPriceFeedProviderAddress: {
+          //ts-check IGMXV2ChainlinkPriceFeedProvider interface
           value: "0x527FB0bCfF63C47761039bB386cFE181A92a4701",
           order: 3,
         },
         readerAddress: {
+          //ts-check IGMXV2Reader interface
           value: "0x5Ca84c34a381434786738735265b9f3FD814b824",
           order: 4,
         },
         roleStoreAddress: {
+          //ts-check IGMXV2RoleStore interface
           value: "0x3c3d99FD298f679DBC2CEcd132b4eC4d0F5e6e72",
           order: 5,
         },
