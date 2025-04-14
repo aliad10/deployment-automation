@@ -1,15 +1,13 @@
--- CreateEnum
-CREATE TYPE "Chain" AS ENUM ('ARBITRUM', 'BASE', 'POLYGON', 'ETHERUEM');
-
 -- CreateTable
 CREATE TABLE "contracts" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "version" TEXT NOT NULL,
-    "chain" "Chain" NOT NULL DEFAULT 'ARBITRUM',
+    "chain" TEXT NOT NULL,
     "chainId" INTEGER NOT NULL,
     "order" INTEGER NOT NULL DEFAULT 1,
     "data" JSONB,
+    "updateName" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -20,9 +18,9 @@ CREATE TABLE "contracts" (
 CREATE TABLE "deployments" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "chain" "Chain" NOT NULL DEFAULT 'ARBITRUM',
+    "chain" TEXT NOT NULL,
     "chainId" INTEGER NOT NULL,
-    "lastDeployedContract" TEXT NOT NULL,
+    "lastDeployedContract" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "totalFee" BIGINT NOT NULL DEFAULT 0,
@@ -37,6 +35,7 @@ CREATE TABLE "deployedContracts" (
     "contractId" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "fee" BIGINT NOT NULL DEFAULT 0,
+    "gasUsed" BIGINT NOT NULL DEFAULT 0,
     "metadata" JSONB,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

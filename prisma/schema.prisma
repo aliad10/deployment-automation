@@ -8,20 +8,11 @@ datasource db {
 }
 
 
-
-enum Chain {
-  ARBITRUM
-  BASE
-  POLYGON
-  ETHERUEM
-}
-
-
 model Contract {
   id          String                  @id @default(cuid())
   name        String
   version     String
-  chain       Chain                   @default(ARBITRUM)
+  chain       String                  
   chainId     Int
   order       Int                     @default(1)
   data        Json?
@@ -35,7 +26,7 @@ model Contract {
 model Deployment {
   id        String                  @id @default(cuid())
   name      String
-  chain     Chain                   @default(ARBITRUM)
+  chain     String                 
   chainId   Int
   lastDeployedContract  String?      
   createdAt DateTime                @default(now())
@@ -52,6 +43,7 @@ model DeployedContract {
   contractId      String
   address         String
   fee             BigInt                  @default(0)
+  gasUsed         BigInt                  @default(0)
   metadata        Json?
   createdAt       DateTime                @default(now())
   updatedAt       DateTime                @updatedAt

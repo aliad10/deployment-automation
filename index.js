@@ -77,7 +77,6 @@ async function main(deploymentName) {
         const gasUsed = receipt.gasUsed;
         if (!gasUsed) {
           console.error("Failed to retrieve gasUsed from receipt");
-          return;
         }
 
         let gasPrice = receipt.gasPrice;
@@ -138,6 +137,7 @@ async function main(deploymentName) {
             contractId: item.id,
             address: contractAddress,
             fee: gasFee,
+            gasUsed: gasUsed,
           },
         });
 
