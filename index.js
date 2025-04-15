@@ -1,6 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
-const { getConstructorValues, getConstructorValue } = require("./heper");
+const {
+  getConstructorValues,
+  getConstructorDataValue,
+  deployViaFoundry,
+} = require("./heper");
 const { ethers } = require("ethers");
+const { execSync } = require("child_process");
 
 require("dotenv").config();
 
@@ -74,13 +79,25 @@ async function main(deploymentName) {
         if (newContract.data) {
           constractorValues = getConstructorValues(newContract.data);
         }
+        let contractAddress;
+        let txHash;
 
-        const contract = await factory.deploy(...constractorValues);
-        await contract.waitForDeployment();
+        if (item.isBigSize) {
+          const deployedData = await deployViaFoundry(
+            item.name,
+            item.path,
+            constractorValues
+          );
+          contractAddress = deployedData.contractAddress;
+          txHash = deployedData.txHash;
+        } else {
+          const contract = await factory.deploy(...constractorValues);
+          await contract.waitForDeployment();
+          txHash = contract.deploymentTransaction().hash;
 
-        const receipt = await provider.getTransactionReceipt(
-          contract.deploymentTransaction().hash
-        );
+          contractAddress = await contract.getAddress();
+        }
+        const receipt = await provider.getTransactionReceipt(txHash);
 
         const gasUsed = receipt.gasUsed;
         if (!gasUsed) {
@@ -93,53 +110,51 @@ async function main(deploymentName) {
         }
 
         const gasFee = BigInt(gasUsed.toString()) * BigInt(gasPrice.toString());
-        const contractAddress = await contract.getAddress();
-
-        console.log(`✅ Contract deployed at: ${contractAddress}`);
-
-        if (item.updateName) {
-          const rows = await prisma.contract.findMany({
-            where: {
-              chain: deploymentData.chain,
-              chainId: deploymentData.chainId,
-              AND: [
-                {
-                  data: {
-                    path: [item.updateName],
-                    not: null,
+        if (item.updateName.length > 0) {
+          for (const updateKey of item.updateName) {
+            const rows = await prisma.contract.findMany({
+              where: {
+                chain: deploymentData.chain,
+                chainId: deploymentData.chainId,
+                AND: [
+                  {
+                    data: {
+                      path: [updateKey],
+                      not: null,
+                    },
                   },
-                },
-                {
-                  data: {
-                    path: [item.updateName, "value"],
-                    equals: null,
+                  {
+                    data: {
+                      path: [updateKey, "value"],
+                      equals: null,
+                    },
                   },
-                },
-              ],
-            },
-          });
+                ],
+              },
+            });
 
-          await Promise.all(
-            rows.map((row) => {
-              const updatedData = { ...row.data };
+            await Promise.all(
+              rows.map((row) => {
+                const updatedData = { ...row.data };
 
-              if (
-                updatedData[item.updateName] &&
-                typeof updatedData[item.updateName] === "object"
-              ) {
-                if (updatedData[item.updateName].type === "array") {
-                  updatedData[item.updateName].value = [contractAddress];
-                } else {
-                  updatedData[item.updateName].value = contractAddress;
+                if (
+                  updatedData[updateKey] &&
+                  typeof updatedData[updateKey] === "object"
+                ) {
+                  if (updatedData[updateKey].type === "array") {
+                    updatedData[updateKey].value = [contractAddress];
+                  } else {
+                    updatedData[updateKey].value = contractAddress;
+                  }
                 }
-              }
 
-              return prisma.contract.update({
-                where: { id: row.id },
-                data: { data: updatedData },
-              });
-            })
-          );
+                return prisma.contract.update({
+                  where: { id: row.id },
+                  data: { data: updatedData },
+                });
+              })
+            );
+          }
         }
 
         if (item.constructorDataUpdateName) {
@@ -173,7 +188,7 @@ async function main(deploymentName) {
                 typeof updatedData[item.constructorDataUpdateName] === "object"
               ) {
                 updatedData[item.constructorDataUpdateName].value =
-                  getConstructorValue(contractAddress);
+                  getConstructorDataValue(contractAddress);
               }
 
               return prisma.contract.update({
@@ -183,7 +198,7 @@ async function main(deploymentName) {
             })
           );
         }
-
+        console.log(`✅ Contract deployed at: ${contractAddress}`);
         await prisma.deployment.update({
           where: { id: deploymentData.id },
           data: { lastDeployedContract: item.id },
@@ -192,6 +207,7 @@ async function main(deploymentName) {
           data: {
             deploymentId: deploymentData.id,
             contractId: item.id,
+            contractName: item.name,
             address: contractAddress,
             fee: gasFee,
             gasUsed: gasUsed,

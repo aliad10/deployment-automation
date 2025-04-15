@@ -14,9 +14,11 @@ model Contract {
   version     String
   chain       String                  
   chainId     Int
+  isBigSize   Boolean                 @default(false)
+  path        String?
   order       Int                     @default(1)
   data        Json?
-  updateName  String?
+  updateName  String[]                @default([])
   constructorDataUpdateName  String?
   createdAt   DateTime                @default(now())
   updatedAt   DateTime                @updatedAt
@@ -42,6 +44,7 @@ model DeployedContract {
   id              String                  @id @default(cuid())
   deploymentId    String
   contractId      String
+  contractName    String
   address         String
   fee             BigInt                  @default(0)
   gasUsed         BigInt                  @default(0)

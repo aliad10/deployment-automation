@@ -1,4 +1,4 @@
-export const updateName = {
+const updateName = {
   DISPATCHER_ADDRESS: "dispatcherAddress",
   GAS_RELAY_PAYMASTER_LIB_ADDRESS: "gasRelayPaymasterLibAddress",
   GAS_RELAY_PAYMASTER_FACTORY_ADDRESS: "gasRelayPaymasterFactoryAddress",
@@ -14,12 +14,15 @@ export const updateName = {
   PROTOCOL_FEE_RESERVE_LIB_ADDRESS: "protocolFeeReserveLibAddress",
   EXTERNAL_POSITION_MANAGER_ADDRESS: "externalPositionManagerAddress",
   PROTOCOL_FEE_RESERVE_PROXY_ADDRESS: "protocolFeeReserveProxyAddress",
+  PROTOCOL_FEE_RESERVE_PROXY_ADDRESS_2: "protocolFeeReserveProxyAddress2",
   UINT_LIST_REGISTRY_ADDRESS: "uintListRegistryAddress",
   INTEGRATION_MANAGER_ADDRESS: "integrationManagerAddress",
   AAVE_V3_FLASH_LOAN_ASSET_MANAGER_LIB_ADDRESS:
     "aaveV3FlashLoanAssetManagerLibAddress",
 };
 
-export const constructorDataUpdateName = {
+const constructorDataUpdateName = {
   DISPATCHER: "dispatcherConstructor",
 };
+
+module.exports = { updateName, constructorDataUpdateName };

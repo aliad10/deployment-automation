@@ -10,13 +10,14 @@ const seedArbitrumContracts = async () => {
     {
       name: "Dispatcher",
       version: "v4",
-      updateName: updateName.DISPATCHER_ADDRESS,
+      updateName: [updateName.DISPATCHER_ADDRESS],
       constructorDataUpdateName: constructorDataUpdateName.DISPATCHER,
       order: 1,
     },
     {
       name: "UintListRegistry",
       version: "v4",
+      updateName: [updateName.UINT_LIST_REGISTRY_ADDRESS],
       order: 2,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
@@ -30,6 +31,7 @@ const seedArbitrumContracts = async () => {
       name: "AddressListRegistry",
       version: "v4",
       order: 3,
+      updateName: [updateName.ADDRESS_LIST_REGISTRY_ADDRESS],
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -40,7 +42,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "ExternalPositionFactory",
       version: "v4",
-      updateName: updateName.EXTERNAL_POSITION_FACTORY_ADDRESS,
+      updateName: [updateName.EXTERNAL_POSITION_FACTORY_ADDRESS],
       order: 4,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
@@ -52,7 +54,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "GasRelayPaymasterLib",
       version: "v4",
-      updateName: updateName.GAS_RELAY_PAYMASTER_LIB_ADDRESS,
+      updateName: [updateName.GAS_RELAY_PAYMASTER_LIB_ADDRESS],
       order: 5,
       data: {
         wethToken: {
@@ -89,7 +91,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "GasRelayPaymasterFactory",
       version: "v4",
-      updateName: updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS,
+      updateName: [updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS],
       order: 6,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
@@ -104,8 +106,10 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "FundDeployer",
-
       version: "v4",
+      updateName: [updateName.FUND_DEPLOYER_ADDRESS],
+      isBigSize: true,
+      path: "contracts/v4/contracts/release/core/fund-deployer/FundDeployer.sol",
       order: 7,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
@@ -122,7 +126,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "FeeManager",
       version: "v4",
-      updateName: updateName.FEE_MANAGER_ADDRESS,
+      updateName: [updateName.FEE_MANAGER_ADDRESS],
       order: 8,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
@@ -134,7 +138,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "PolicyManager",
       version: "v4",
-      updateName: updateName.POLICY_MANAGER_ADDRESS,
+      updateName: [updateName.POLICY_MANAGER_ADDRESS],
       order: 9,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
@@ -151,7 +155,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "ValueInterpreter",
       version: "v4",
-      updateName: updateName.VALUE_INTERPRETER_ADDRESS,
+      updateName: [updateName.VALUE_INTERPRETER_ADDRESS],
       order: 10,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
@@ -172,6 +176,7 @@ const seedArbitrumContracts = async () => {
       name: "IntegrationManager",
       version: "v4",
       order: 11,
+      updateName: [updateName.INTEGRATION_MANAGER_ADDRESS],
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
           value: null,
@@ -191,7 +196,7 @@ const seedArbitrumContracts = async () => {
       name: "ExternalPositionManager",
       version: "v4",
       order: 12,
-      updateName: updateName.EXTERNAL_POSITION_MANAGER_ADDRESS,
+      updateName: [updateName.EXTERNAL_POSITION_MANAGER_ADDRESS],
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
           value: null,
@@ -210,7 +215,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "ProtocolFeeTracker",
       version: "v4",
-      updateName: updateName.PROTOCOL_FEE_TRACKER_ADDRESS,
+      updateName: [updateName.PROTOCOL_FEE_TRACKER_ADDRESS],
       order: 13,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
@@ -222,7 +227,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "GlobalConfigLib",
       version: "v4",
-      updateName: updateName.GLOBAL_CONFIG_LIB_ADDRESS,
+      updateName: [updateName.GLOBAL_CONFIG_LIB_ADDRESS],
       order: 14,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
@@ -251,7 +256,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "FundValueCalculator",
       version: "v4",
-      updateName: updateName.FUND_VALUE_CALCULATOR_ADDRESS,
+      updateName: [updateName.FUND_VALUE_CALCULATOR_ADDRESS],
       order: 16,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
@@ -356,7 +361,7 @@ const seedArbitrumContracts = async () => {
       name: "AaveV3FlashLoanAssetManagerLib",
       version: "dev",
       order: 22,
-      updateName: updateName.AAVE_V3_FLASH_LOAN_ASSET_MANAGER_LIB_ADDRESS,
+      updateName: [updateName.AAVE_V3_FLASH_LOAN_ASSET_MANAGER_LIB_ADDRESS],
       data: {
         aavePoolAddressProviderAddress: {
           value: "0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb",
@@ -372,13 +377,16 @@ const seedArbitrumContracts = async () => {
     {
       name: "ProtocolFeeReserveLib",
       version: "v4",
-      updateName: updateName.PROTOCOL_FEE_RESERVE_LIB_ADDRESS,
+      updateName: [updateName.PROTOCOL_FEE_RESERVE_LIB_ADDRESS],
       order: 23,
     },
     {
       name: "ProtocolFeeReserveProxy",
       version: "v4",
-      updateName: updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS,
+      updateName: [
+        updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS,
+        updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS_2,
+      ],
       order: 24,
       data: {
         [constructorDataUpdateName.DISPATCHER]: {
@@ -397,6 +405,8 @@ const seedArbitrumContracts = async () => {
       name: "VaultLib",
       version: "v4",
       order: 25,
+      isBigSize: true,
+      path: "contracts/v4/contracts/release/core/fund/vault/VaultLib.sol",
       data: {
         [updateName.EXTERNAL_POSITION_MANAGER_ADDRESS]: {
           value: null,
@@ -418,7 +428,7 @@ const seedArbitrumContracts = async () => {
           value: constructorData.ARBITRUM.MLN_TOKEN,
           order: 5,
         },
-        [updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS]: {
+        [updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS_2]: {
           value: null,
           order: 6,
         },
@@ -827,26 +837,11 @@ const seedArbitrumContracts = async () => {
         },
       },
     },
-    {
-      name: "AaveV3DebtPositionParser",
-      version: "dev",
-      order: 51,
-      data: {
-        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: null,
-          order: 1,
-        },
-        aTokenListId: {
-          value: 8,
-          order: 2,
-        },
-      },
-    },
 
     {
       name: "BalancerV2LiquidityAdapter",
       version: "v4",
-      order: 52,
+      order: 51,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -870,7 +865,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "UniswapV3LiquidityPositionParser",
       version: "v4",
-      order: 53,
+      order: 52,
       data: {
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
           value: null,
@@ -885,7 +880,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "UniswapV3Adapter",
       version: "v4",
-      order: 54,
+      order: 53,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -900,7 +895,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "AaveV3DebtPositionLib",
       version: "dev",
-      order: 55,
+      order: 54,
       data: {
         dataProviderAddress: {
           //ts-check IAaveV3ProtocolDataProvider interface
@@ -926,7 +921,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "ParaSwapV5Adapter",
       version: "dev",
-      order: 56,
+      order: 55,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -953,7 +948,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "GMXV2LeverageTradingPositionParser",
       version: "dev",
-      order: 57,
+      order: 56,
       data: {
         wrappedNativeTokenAddress: {
           value: constructorData.ARBITRUM.WETH,
@@ -973,17 +968,17 @@ const seedArbitrumContracts = async () => {
     {
       name: "ManualValueOracleLib",
       version: "v4",
-      order: 58,
+      order: 57,
     },
     {
       name: "ManualValueOracleFactory",
       version: "v4",
-      order: 59,
+      order: 58,
     },
     {
       name: "TheGraphDelegationPositionParser",
       version: "v4",
-      order: 60,
+      order: 59,
       data: {
         grtTokenAddress: {
           value: constructorData.ARBITRUM.GRT_TOKEN,
@@ -994,7 +989,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "TheGraphDelegationPositionLib",
       version: "v4",
-      order: 61,
+      order: 60,
       data: {
         stakingProxyAddress: {
           value: "0x00669A4CF01450B64E8A2A20E9b1FCB71E61eF03",
@@ -1009,7 +1004,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "TransferAssetsAdapter",
       version: "dev",
-      order: 62,
+      order: 61,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -1020,7 +1015,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "DispatcherOwnedBeaconFactory",
       version: "dev",
-      order: 63,
+      order: 62,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -1036,7 +1031,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "DepositWrapper",
       version: "v4",
-      order: 64,
+      order: 63,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
@@ -1057,7 +1052,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "GMXV2LeverageTradingPositionLib",
       version: "dev",
-      order: 65,
+      order: 64,
       data: {
         wrappedNativeTokenAddress: {
           //ts-check IWETH interface
@@ -1106,7 +1101,9 @@ const seedArbitrumContracts = async () => {
     {
       name: "ComptrollerLib",
       version: "v4",
-      order: 66,
+      order: 65,
+      isBigSize: true,
+      path: "contracts/v4/contracts/release/core/fund/comptroller/ComptrollerLib.sol",
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -1157,7 +1154,7 @@ const seedArbitrumContracts = async () => {
     {
       name: "BalancerV2WeightedPoolPriceFeed",
       version: "v4",
-      order: 67,
+      order: 66,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
           value: null,
@@ -1181,33 +1178,6 @@ const seedArbitrumContracts = async () => {
         },
       },
     },
-    {
-      name: "AaveV3Adapter",
-      version: "v4",
-      order: 68,
-      data: {
-        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
-          value: null,
-          order: 1,
-        },
-        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: null,
-          order: 2,
-        },
-        aTokenListId: {
-          value: 8,
-          order: 3,
-        },
-        aavePoolAddress: {
-          value: "0x794a61358D6845594F94dc1DB02A252b5b4814aD",
-          order: 4,
-        },
-        referralCode: {
-          value: 0,
-          order: 5,
-        },
-      },
-    },
   ];
 
   for (const contractData of contracts) {
@@ -1217,6 +1187,8 @@ const seedArbitrumContracts = async () => {
         name: contractData.name,
         updateName: contractData.updateName,
         constructorDataUpdateName: contractData.constructorDataUpdateName,
+        isBigSize: contractData.isBigSize,
+        path: contractData.path,
         chain: "ARBITRUM",
         chainId: 42161,
         version: contractData.version,

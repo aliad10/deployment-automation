@@ -1,4 +1,4 @@
-export const constructorData = {
+const constructorData = {
   ARBITRUM: {
     WETH: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
     ZERO_ADDRESS: "0x0000000000000000000000000000000000000000",
@@ -8,3 +8,5 @@ export const constructorData = {
     GRT_TOKEN: "0x9623063377AD1B27544C965cCd7342f7EA7e88C7",
   },
 };
+
+module.exports = { constructorData };
