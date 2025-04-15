@@ -1,5 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-const { updateName } = require("./enum");
+const { updateName, constructorDataUpdateName } = require("./enum");
 const prisma = new PrismaClient();
 const { constructorData } = require("../consts");
 
@@ -9,19 +9,18 @@ const seedArbitrumContracts = async () => {
   const contracts = [
     {
       name: "Dispatcher",
-
       version: "v4",
       updateName: updateName.DISPATCHER_ADDRESS,
+      constructorDataUpdateName: constructorDataUpdateName.DISPATCHER,
       order: 1,
     },
     {
       name: "UintListRegistry",
-
       version: "v4",
       order: 2,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -29,12 +28,11 @@ const seedArbitrumContracts = async () => {
 
     {
       name: "AddressListRegistry",
-
       version: "v4",
       order: 3,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -46,18 +44,16 @@ const seedArbitrumContracts = async () => {
       order: 4,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
     },
     {
       name: "GasRelayPaymasterLib",
-
       version: "v4",
       updateName: updateName.GAS_RELAY_PAYMASTER_LIB_ADDRESS,
       order: 5,
-
       data: {
         wethToken: {
           value: constructorData.ARBITRUM.WETH,
@@ -97,11 +93,11 @@ const seedArbitrumContracts = async () => {
       order: 6,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.GAS_RELAY_PAYMASTER_LIB_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -113,11 +109,11 @@ const seedArbitrumContracts = async () => {
       order: 7,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -130,24 +126,23 @@ const seedArbitrumContracts = async () => {
       order: 8,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
     },
     {
       name: "PolicyManager",
-
       version: "v4",
       updateName: updateName.POLICY_MANAGER_ADDRESS,
       order: 9,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -155,13 +150,12 @@ const seedArbitrumContracts = async () => {
 
     {
       name: "ValueInterpreter",
-
       version: "v4",
       updateName: updateName.VALUE_INTERPRETER_ADDRESS,
       order: 10,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         wethToken: {
@@ -176,20 +170,19 @@ const seedArbitrumContracts = async () => {
     },
     {
       name: "IntegrationManager",
-
       version: "v4",
       order: 11,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 3,
         },
       },
@@ -201,15 +194,15 @@ const seedArbitrumContracts = async () => {
       updateName: updateName.EXTERNAL_POSITION_MANAGER_ADDRESS,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.EXTERNAL_POSITION_FACTORY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 3,
         },
       },
@@ -221,7 +214,7 @@ const seedArbitrumContracts = async () => {
       order: 13,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -233,7 +226,7 @@ const seedArbitrumContracts = async () => {
       order: 14,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -243,13 +236,13 @@ const seedArbitrumContracts = async () => {
       version: "v4",
       order: 15,
       data: {
-        constructorData: {
+        [constructorDataUpdateName.DISPATCHER]: {
           // @ts-check: handle this
-          value: "0x0000000000000000000000000000000000000000",
+          value: null, //  fill this with zero value
           order: 1,
         },
         [updateName.GLOBAL_CONFIG_LIB_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -262,15 +255,15 @@ const seedArbitrumContracts = async () => {
       order: 16,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.PROTOCOL_FEE_TRACKER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 3,
         },
       },
@@ -282,19 +275,19 @@ const seedArbitrumContracts = async () => {
       order: 17,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.FUND_DEPLOYER_ADDRESS]: {
           // @ts-check: handle this
 
-          value: [],
+          value: null,
           order: 2,
           type: "array",
         },
         [updateName.FUND_VALUE_CALCULATOR_ADDRESS]: {
           // @ts-check: handle this
-          value: [],
+          value: null,
           order: 3,
           type: "array",
         },
@@ -308,7 +301,7 @@ const seedArbitrumContracts = async () => {
       order: 18,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         listDescription: {
@@ -324,12 +317,11 @@ const seedArbitrumContracts = async () => {
 
     {
       name: "UnpermissionedActionsWrapper",
-
       version: "v4",
       order: 19,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -346,7 +338,7 @@ const seedArbitrumContracts = async () => {
       order: 21,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         balancerVault: {
@@ -389,13 +381,13 @@ const seedArbitrumContracts = async () => {
       updateName: updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS,
       order: 24,
       data: {
-        constructorData: {
+        [constructorDataUpdateName.DISPATCHER]: {
           // @ts-check: handle this
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.PROTOCOL_FEE_RESERVE_LIB_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -407,19 +399,19 @@ const seedArbitrumContracts = async () => {
       order: 25,
       data: {
         [updateName.EXTERNAL_POSITION_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         [updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 3,
         },
         [updateName.PROTOCOL_FEE_TRACKER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 4,
         },
         mlnToken: {
@@ -427,7 +419,7 @@ const seedArbitrumContracts = async () => {
           order: 5,
         },
         [updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 6,
         },
         wethToken: {
@@ -447,7 +439,7 @@ const seedArbitrumContracts = async () => {
       order: 26,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -459,7 +451,7 @@ const seedArbitrumContracts = async () => {
       order: 27,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -470,7 +462,7 @@ const seedArbitrumContracts = async () => {
       order: 28,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -481,12 +473,12 @@ const seedArbitrumContracts = async () => {
       order: 29,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
           //ts-check  used IValueInterpreter as input
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -497,7 +489,7 @@ const seedArbitrumContracts = async () => {
       order: 30,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -508,11 +500,11 @@ const seedArbitrumContracts = async () => {
       order: 31,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -523,7 +515,7 @@ const seedArbitrumContracts = async () => {
       order: 32,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -535,11 +527,11 @@ const seedArbitrumContracts = async () => {
       order: 33,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -550,7 +542,7 @@ const seedArbitrumContracts = async () => {
       order: 34,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -561,11 +553,11 @@ const seedArbitrumContracts = async () => {
       order: 35,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -576,11 +568,11 @@ const seedArbitrumContracts = async () => {
       order: 36,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -591,7 +583,7 @@ const seedArbitrumContracts = async () => {
       order: 37,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -602,7 +594,7 @@ const seedArbitrumContracts = async () => {
       order: 38,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -613,7 +605,7 @@ const seedArbitrumContracts = async () => {
       order: 39,
       data: {
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -624,11 +616,11 @@ const seedArbitrumContracts = async () => {
       order: 40,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -639,11 +631,11 @@ const seedArbitrumContracts = async () => {
       order: 41,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -654,11 +646,11 @@ const seedArbitrumContracts = async () => {
       order: 42,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.UINT_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -669,11 +661,11 @@ const seedArbitrumContracts = async () => {
       order: 43,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -684,7 +676,7 @@ const seedArbitrumContracts = async () => {
       order: 44,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -695,11 +687,11 @@ const seedArbitrumContracts = async () => {
       order: 45,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -710,15 +702,15 @@ const seedArbitrumContracts = async () => {
       order: 46,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 3,
         },
         wethToken: {
@@ -741,15 +733,15 @@ const seedArbitrumContracts = async () => {
       order: 47,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 3,
         },
         wethToken: {
@@ -780,15 +772,15 @@ const seedArbitrumContracts = async () => {
       order: 48,
       data: {
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 3,
         },
         wethToken: {
@@ -815,7 +807,7 @@ const seedArbitrumContracts = async () => {
           order: 1,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
       },
@@ -826,7 +818,7 @@ const seedArbitrumContracts = async () => {
       order: 50,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         oneInchV5ExchangeAddress: {
@@ -841,7 +833,7 @@ const seedArbitrumContracts = async () => {
       order: 51,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         aTokenListId: {
@@ -857,7 +849,7 @@ const seedArbitrumContracts = async () => {
       order: 52,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         balancerVaultAddress: {
@@ -881,7 +873,7 @@ const seedArbitrumContracts = async () => {
       order: 53,
       data: {
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         nonfungiblePositionManagerAddress: {
@@ -896,7 +888,7 @@ const seedArbitrumContracts = async () => {
       order: 54,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         routerAddress: {
@@ -937,7 +929,7 @@ const seedArbitrumContracts = async () => {
       order: 56,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         augustusSwapperAddress: {
@@ -1020,7 +1012,7 @@ const seedArbitrumContracts = async () => {
       order: 62,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
       },
@@ -1031,11 +1023,11 @@ const seedArbitrumContracts = async () => {
       order: 63,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.AAVE_V3_FLASH_LOAN_ASSET_MANAGER_LIB_ADDRESS]: {
-          value: "0x721217b9e550102dfc0c8F2766E7744Da207BE2c",
+          value: null,
           order: 2,
         },
       },
@@ -1047,7 +1039,7 @@ const seedArbitrumContracts = async () => {
       order: 64,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         allowedExchangesListId: {
@@ -1117,39 +1109,39 @@ const seedArbitrumContracts = async () => {
       order: 66,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 3,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 4,
         },
         [updateName.EXTERNAL_POSITION_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 5,
         },
         [updateName.FEE_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 6,
         },
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 7,
         },
         [updateName.POLICY_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 8,
         },
         [updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 9,
         },
         mlnTokenAddress: {
@@ -1168,11 +1160,11 @@ const seedArbitrumContracts = async () => {
       order: 67,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         intermediaryAssetAddress: {
@@ -1195,11 +1187,11 @@ const seedArbitrumContracts = async () => {
       order: 68,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 1,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-          value: "0x0000000000000000000000000000000000000000",
+          value: null,
           order: 2,
         },
         aTokenListId: {
@@ -1224,6 +1216,7 @@ const seedArbitrumContracts = async () => {
       data: {
         name: contractData.name,
         updateName: contractData.updateName,
+        constructorDataUpdateName: contractData.constructorDataUpdateName,
         chain: "ARBITRUM",
         chainId: 42161,
         version: contractData.version,

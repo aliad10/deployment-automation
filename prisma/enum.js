@@ -19,3 +19,7 @@ export const updateName = {
   AAVE_V3_FLASH_LOAN_ASSET_MANAGER_LIB_ADDRESS:
     "aaveV3FlashLoanAssetManagerLibAddress",
 };
+
+export const constructorDataUpdateName = {
+  DISPATCHER: "dispatcherConstructor",
+};

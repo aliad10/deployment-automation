@@ -17,6 +17,7 @@ model Contract {
   order       Int                     @default(1)
   data        Json?
   updateName  String?
+  constructorDataUpdateName  String?
   createdAt   DateTime                @default(now())
   updatedAt   DateTime                @updatedAt
   @@unique([chain, name])

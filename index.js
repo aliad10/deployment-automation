@@ -1,10 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
-const { getConstructorValues } = require("./heper");
+const { getConstructorValues, getConstructorValue } = require("./heper");
 const { ethers } = require("ethers");
 
 require("dotenv").config();
 
 const fs = require("fs");
+
 const prisma = new PrismaClient();
 
 async function main(deploymentName) {
@@ -63,8 +64,15 @@ async function main(deploymentName) {
           wallet
         );
         let constractorValues = [];
-        if (item.data) {
-          constractorValues = getConstructorValues(item.data);
+
+        const newContract = await prisma.contract.findUnique({
+          where: {
+            id: item.id,
+          },
+        });
+
+        if (newContract.data) {
+          constractorValues = getConstructorValues(newContract.data);
         }
 
         const contract = await factory.deploy(...constractorValues);
@@ -104,29 +112,78 @@ async function main(deploymentName) {
                 {
                   data: {
                     path: [item.updateName, "value"],
-                    not: null,
+                    equals: null,
                   },
                 },
               ],
             },
           });
 
-          rows.map((row) => {
-            const updatedData = { ...row.data };
+          await Promise.all(
+            rows.map((row) => {
+              const updatedData = { ...row.data };
 
-            if (
-              updatedData[item.updateName] &&
-              typeof updatedData[item.updateName] === "object"
-            ) {
-              updatedData[item.updateName].value = contractAddress;
-            }
+              if (
+                updatedData[item.updateName] &&
+                typeof updatedData[item.updateName] === "object"
+              ) {
+                if (updatedData[item.updateName].type === "array") {
+                  updatedData[item.updateName].value = [contractAddress];
+                } else {
+                  updatedData[item.updateName].value = contractAddress;
+                }
+              }
 
-            return prisma.contract.update({
-              where: { id: row.id },
-              data: { data: updatedData },
-            });
-          });
+              return prisma.contract.update({
+                where: { id: row.id },
+                data: { data: updatedData },
+              });
+            })
+          );
         }
+
+        if (item.constructorDataUpdateName) {
+          const rows = await prisma.contract.findMany({
+            where: {
+              chain: deploymentData.chain,
+              chainId: deploymentData.chainId,
+              AND: [
+                {
+                  data: {
+                    path: [item.constructorDataUpdateName],
+                    not: null,
+                  },
+                },
+                {
+                  data: {
+                    path: [item.constructorDataUpdateName, "value"],
+                    equals: null,
+                  },
+                },
+              ],
+            },
+          });
+
+          await Promise.all(
+            rows.map((row) => {
+              const updatedData = { ...row.data };
+
+              if (
+                updatedData[item.constructorDataUpdateName] &&
+                typeof updatedData[item.constructorDataUpdateName] === "object"
+              ) {
+                updatedData[item.constructorDataUpdateName].value =
+                  getConstructorValue(contractAddress);
+              }
+
+              return prisma.contract.update({
+                where: { id: row.id },
+                data: { data: updatedData },
+              });
+            })
+          );
+        }
+
         await prisma.deployment.update({
           where: { id: deploymentData.id },
           data: { lastDeployedContract: item.id },
