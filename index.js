@@ -1,9 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-const {
-  getConstructorValues,
-  getConstructorDataValue,
-  deployViaFoundry,
-} = require("./heper");
+const { getConstructorValues, getConstructorDataValue } = require("./heper");
 const { ethers } = require("ethers");
 
 require("dotenv").config();
@@ -78,24 +74,13 @@ async function main(deploymentName) {
         if (newContract.data) {
           constractorValues = getConstructorValues(newContract.data);
         }
-        let contractAddress;
-        let txHash;
 
-        // if (item.isBigSize) {
-        //   const deployedData = await deployViaFoundry(
-        //     item.name,
-        //     item.path,
-        //     constractorValues
-        //   );
-        //   contractAddress = deployedData.contractAddress;
-        //   txHash = deployedData.txHash;
-        // } else {
         const contract = await factory.deploy(...constractorValues);
         await contract.waitForDeployment();
-        txHash = contract.deploymentTransaction().hash;
+        const txHash = contract.deploymentTransaction().hash;
 
-        contractAddress = await contract.getAddress();
-        // }
+        const contractAddress = await contract.getAddress();
+
         const receipt = await provider.getTransactionReceipt(txHash);
 
         const gasUsed = receipt.gasUsed;
