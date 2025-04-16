@@ -5,8 +5,6 @@ CREATE TABLE "contracts" (
     "version" TEXT NOT NULL,
     "chain" TEXT NOT NULL,
     "chainId" INTEGER NOT NULL,
-    "isBigSize" BOOLEAN NOT NULL DEFAULT false,
-    "path" TEXT,
     "order" INTEGER NOT NULL DEFAULT 1,
     "data" JSONB,
     "updateName" TEXT[] DEFAULT ARRAY[]::TEXT[],
