@@ -5,7 +5,6 @@ const {
   deployViaFoundry,
 } = require("./heper");
 const { ethers } = require("ethers");
-const { execSync } = require("child_process");
 
 require("dotenv").config();
 
@@ -82,21 +81,21 @@ async function main(deploymentName) {
         let contractAddress;
         let txHash;
 
-        if (item.isBigSize) {
-          const deployedData = await deployViaFoundry(
-            item.name,
-            item.path,
-            constractorValues
-          );
-          contractAddress = deployedData.contractAddress;
-          txHash = deployedData.txHash;
-        } else {
-          const contract = await factory.deploy(...constractorValues);
-          await contract.waitForDeployment();
-          txHash = contract.deploymentTransaction().hash;
+        // if (item.isBigSize) {
+        //   const deployedData = await deployViaFoundry(
+        //     item.name,
+        //     item.path,
+        //     constractorValues
+        //   );
+        //   contractAddress = deployedData.contractAddress;
+        //   txHash = deployedData.txHash;
+        // } else {
+        const contract = await factory.deploy(...constractorValues);
+        await contract.waitForDeployment();
+        txHash = contract.deploymentTransaction().hash;
 
-          contractAddress = await contract.getAddress();
-        }
+        contractAddress = await contract.getAddress();
+        // }
         const receipt = await provider.getTransactionReceipt(txHash);
 
         const gasUsed = receipt.gasUsed;
@@ -226,6 +225,7 @@ async function main(deploymentName) {
           console.error(
             `🛑 Skipping contract [${item.name}] after ${maxRetries} failed attempts.`
           );
+          return;
         } else {
           console.log(`🔁 Retrying [${item.name}]...`);
           await new Promise((r) => setTimeout(r, 3000)); // wait 3 seconds before retry

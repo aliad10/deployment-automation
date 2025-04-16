@@ -14,8 +14,6 @@ model Contract {
   version     String
   chain       String                  
   chainId     Int
-  isBigSize   Boolean                 @default(false)
-  path        String?
   order       Int                     @default(1)
   data        Json?
   updateName  String[]                @default([])

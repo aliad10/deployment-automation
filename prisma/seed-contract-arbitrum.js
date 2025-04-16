@@ -108,8 +108,6 @@ const seedArbitrumContracts = async () => {
       name: "FundDeployer",
       version: "v4",
       updateName: [updateName.FUND_DEPLOYER_ADDRESS],
-      isBigSize: true,
-      path: "contracts/v4/contracts/release/core/fund-deployer/FundDeployer.sol",
       order: 7,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
@@ -405,8 +403,6 @@ const seedArbitrumContracts = async () => {
       name: "VaultLib",
       version: "v4",
       order: 25,
-      isBigSize: true,
-      path: "contracts/v4/contracts/release/core/fund/vault/VaultLib.sol",
       data: {
         [updateName.EXTERNAL_POSITION_MANAGER_ADDRESS]: {
           value: null,
@@ -1097,13 +1093,10 @@ const seedArbitrumContracts = async () => {
         },
       },
     },
-
     {
       name: "ComptrollerLib",
       version: "v4",
       order: 65,
-      isBigSize: true,
-      path: "contracts/v4/contracts/release/core/fund/comptroller/ComptrollerLib.sol",
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -1187,8 +1180,6 @@ const seedArbitrumContracts = async () => {
         name: contractData.name,
         updateName: contractData.updateName,
         constructorDataUpdateName: contractData.constructorDataUpdateName,
-        isBigSize: contractData.isBigSize,
-        path: contractData.path,
         chain: "ARBITRUM",
         chainId: 42161,
         version: contractData.version,
