@@ -236,6 +236,7 @@ const seedEthContracts = async () => {
       name: "GlobalConfigProxy",
       version: "dev",
       order: 15,
+      updateName: [updateName.GLOBAL_CONFIG_PROXY_ADDRESS],
       data: {
         [constructorDataUpdateName.DISPATCHER]: {
           // @ts-check: handle this
@@ -271,6 +272,8 @@ const seedEthContracts = async () => {
     {
       name: "FundValueCalculatorRouter",
       version: "dev",
+      updateName: [updateName.FUND_VALUE_CALCULATOR_ROUTER_ADDRESS],
+
       order: 17,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
@@ -1239,7 +1242,7 @@ const seedEthContracts = async () => {
       },
     },
     {
-      name: "ParaSwapV6Adapter",
+      name: "AaveDebtPositionParser",
       version: "dev",
       order: 71,
       data: {
@@ -1321,10 +1324,919 @@ const seedEthContracts = async () => {
         },
       },
     },
+    {
+      name: "ArbitraryLoanPositionLib",
+      version: "dev",
+      order: 76,
+      data: {
+        wrappedNativeAsset: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "ArbitraryLoanPositionParser",
+      version: "dev",
+      order: 77,
+    },
+    {
+      name: "ArbitraryLoanTotalNominalDeltaOracleModule",
+      version: "dev",
+      order: 78,
+    },
+
+    {
+      name: "AssetValueCalculator",
+      version: "dev",
+      order: 79,
+      data: {
+        [updateName.VALUE_INTERPRETER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "ChainlinkLikeWstethPriceFeed",
+      version: "dev",
+      updateName: [updateName.CHAIN_LINK_LIKE_WSTETH_PRICE_FEED_ADDRESS],
+      order: 80,
+      data: {
+        steth: {
+          value: "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+          order: 1,
+        },
+        stethEthChainlinkAggregator: {
+          value: "0x86392dC19c0b719886221c78AB11eb8Cf5c52812",
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "ChainlinkLikeYnEthPriceFeed",
+      version: "dev",
+      order: 81,
+      data: {
+        curveYnethWstethPool: {
+          value: "0x19B8524665aBAC613D82eCE5D8347BA44C714bDd",
+          order: 1,
+        },
+        [updateName.CHAIN_LINK_LIKE_WSTETH_PRICE_FEED_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "CompoundPriceFeed",
+      version: "dev",
+      updateName: [updateName.COMPOUND_PRICE_FEED_ADDRESS],
+      order: 82,
+
+      data: {
+        [updateName.FUND_DEPLOYER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        weth: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 2,
+        },
+
+        ceth: {
+          value: "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5",
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "CompoundDebtPositionLib",
+      version: "dev",
+      order: 83,
+      data: {
+        compoundComptroller: {
+          value: "0x3d9819210A31b4961b30EF54bE2aeD79B9c9Cd3B",
+          order: 1,
+        },
+        compToken: {
+          value: "0xc00e94Cb662C3520282E6f5717214004A7f26888",
+          order: 2,
+        },
+
+        weth: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "CompoundDebtPositionParser",
+      version: "dev",
+      order: 84,
+      data: {
+        [updateName.COMPOUND_PRICE_FEED_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        compToken: {
+          value: "0xc00e94Cb662C3520282E6f5717214004A7f26888",
+          order: 2,
+        },
+
+        [updateName.VALUE_INTERPRETER_ADDRESS]: {
+          value: null,
+          order: 3,
+        },
+      },
+    },
+
+    {
+      name: "CompoundAdapter",
+      version: "dev",
+      order: 84,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        [updateName.COMPOUND_PRICE_FEED_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+
+        wethToken: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "CompoundV3Adapter",
+      version: "dev",
+      order: 85,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        compoundV3Configurator: {
+          value: "0x316f9708bB98af7dA9c68C1C3b5e79039cD336E3",
+          order: 2,
+        },
+        compoundV3Rewards: {
+          value: "0x1B0e765F6224C21223AeA2af16c1C46E38885a40",
+          order: 2,
+        },
+        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 3,
+        },
+        cTokenListId: {
+          value: 436, //todo: mahdi
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "CompoundV3CTokenListOwner",
+      version: "dev",
+      order: 86,
+      data: {
+        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        listDescription: {
+          value: "Compound v3: cTokens",
+          order: 2,
+        },
+
+        compoundV3Configurator: {
+          value: "0x316f9708bB98af7dA9c68C1C3b5e79039cD336E3",
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "ConvertedQuoteAggregatorFactory",
+      version: "dev",
+      order: 87,
+    },
+    {
+      name: "ConvexVotingPositionLib",
+      version: "dev",
+      order: 88,
+      data: {
+        vlCvx: {
+          value: "0x72a19342e8F1838460eBFCCEf09F6585e32db86E",
+          order: 1,
+        },
+        vlCvxExtraRewards: {
+          value: "0x9B622f2c40b80EF5efb14c2B2239511FfBFaB702",
+          order: 2,
+        },
+
+        cvxCrvStaking: {
+          value: "0x3Fe65692bfCD0e6CF84cB1E7d24108E434A7587e",
+          order: 3,
+        },
+        cvxToken: {
+          value: "0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B",
+          order: 4,
+        },
+        snapshotDelegateRegistry: {
+          value: "0x469788fE6E9E9681C6ebF3bF78e7Fd26Fc015446",
+          order: 5,
+        },
+        votiumMultiMerkleStash: {
+          value: "0x378Ba9B73309bE80BF4C2c027aAD799766a7ED5A",
+          order: 6,
+        },
+      },
+    },
+    {
+      name: "ConvexVotingPositionParser",
+      version: "dev",
+      order: 89,
+      data: {
+        cvxToken: {
+          value: "0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B",
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "EnzymeVaultPriceFeed",
+      version: "dev",
+      order: 90,
+      data: {
+        [updateName.DISPATCHER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+
+        [updateName.FUND_VALUE_CALCULATOR_ROUTER_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "EnzymeV4VaultAdapter",
+      version: "dev",
+      order: 90,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        [updateName.FUND_DEPLOYER_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+        [updateName.DISPATCHER_ADDRESS]: {
+          value: null,
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "ERC4626Adapter",
+      version: "dev",
+      order: 91,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "ERC4626PriceFeed",
+      version: "dev",
+      order: 92,
+    },
+    {
+      name: "ERC4626RateAggregatorFactory",
+      version: "dev",
+      order: 93,
+    },
+    {
+      name: "EtherFiEthPriceFeed",
+      version: "dev",
+      order: 94,
+      data: {
+        eeth: {
+          value: "0x35fA164735182de50811E8e2E824cFb9B6118ac2",
+          order: 1,
+        },
+        weeth: {
+          value: "0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee",
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "FundDataProviderRouter",
+      version: "dev",
+      order: 95,
+      data: {
+        [updateName.FUND_VALUE_CALCULATOR_ROUTER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        wethToken: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "GatedRedemptionQueueSharesWrapperLib",
+      version: "dev",
+      order: 96,
+      data: {
+        [updateName.GLOBAL_CONFIG_PROXY_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        wrappedNativeAsset: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "GatedRedemptionQueueSharesWrapperFactory",
+      version: "dev",
+      updateName: [
+        updateName.GATED_REDEMPTION_QUEUE_SHARES_WRAPPER_LIB_ADDRESS,
+      ],
+
+      order: 97,
+      data: {
+        [updateName.DISPATCHER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        [updateName.GATED_REDEMPTION_QUEUE_SHARES_WRAPPER_LIB_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "KilnStakingPositionLib",
+      version: "dev",
+      order: 98,
+      data: {
+        wethToken: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 1,
+        },
+        exitedValidatorEthThreshold: {
+          value: 20000000000000000000,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "KilnStakingPositionParser",
+      version: "dev",
+      order: 99,
+      data: {
+        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        stakingContractsListId: {
+          value: 400, //todo: mahdi
+          order: 2,
+        },
+        weth: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "LidoWithdrawalsPositionLib",
+      version: "dev",
+      order: 100,
+      data: {
+        withdrawalQueue: {
+          value: "0x889edC2eDab5f40e902b864aD4d7AdE8E412F9B1",
+          order: 1,
+        },
+        stethAddress: {
+          value: "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "LidoWithdrawalsPositionParser",
+      version: "dev",
+      order: 101,
+      data: {
+        stethAddress: {
+          value: "0x889edC2eDab5f40e902b864aD4d7AdE8E412F9B1",
+          order: 1,
+        },
+        wethAddress: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "MapleLiquidityPositionLib",
+      version: "dev",
+      order: 102,
+    },
+    {
+      name: "MapleLiquidityPositionParser",
+      version: "dev",
+      order: 103,
+      data: {
+        mapleV2Globals: {
+          value: "0x804a6F5F667170F545Bf14e5DDB48C70B788390C",
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "MorphoBluePositionLib",
+      version: "dev",
+      order: 104,
+      data: {
+        allowedMorphoBlueVaultsListId: {
+          value: 3,
+          order: 1,
+        },
+        morphoBlueAddress: {
+          value: "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+          order: 2,
+        },
+        [updateName.UINT_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 3,
+        },
+      },
+    },
+
+    {
+      name: "MorphoBluePositionParser",
+      version: "dev",
+      order: 105,
+      data: {
+        morphoBlueAddress: {
+          value: "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "PeggedDerivativesPriceFeed",
+      version: "dev",
+      order: 106,
+      data: {
+        [updateName.FUND_DEPLOYER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "PeggedRateDeviationAggregatorFactory",
+      version: "dev",
+      order: 107,
+    },
+    {
+      name: "PendleV2Adapter",
+      version: "dev",
+      order: 108,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        pendleRouterAddress: {
+          value: "0x888888888889758F76e7103c6CbF23ABbF58F946",
+          order: 2,
+        },
+        wrappedNativeAssetAddress: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "SharePriceThrottledAssetManagerLib",
+      version: "dev",
+      updateName: [updateName.SHARE_PRICE_THROTTLED_ASSET_MANAGER_LIB_ADDRESS],
+      order: 109,
+      data: {
+        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        pendleRouterAddress: {
+          value: 598,
+          order: 2,
+        },
+        [updateName.FUND_VALUE_CALCULATOR_ROUTER_ADDRESS]: {
+          value: null,
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "SharePriceThrottledAssetManagerFactory",
+      version: "dev",
+      order: 110,
+      data: {
+        [updateName.SHARE_PRICE_THROTTLED_ASSET_MANAGER_LIB_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+      },
+    },
+
+    {
+      name: "SharesSplitterFactory",
+      version: "dev",
+      order: 111,
+      data: {
+        [updateName.GLOBAL_CONFIG_PROXY_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "SingleAssetDepositQueueLib",
+      version: "dev",
+      updateName: [updateName.SINGLE_ASSET_DEPOSIT_QUEUE_LIB_ADDRESS],
+      order: 112,
+      data: {
+        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        [updateName.GLOBAL_CONFIG_PROXY_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+
+        gsnTrustedForwardersAddressListId: {
+          value: 598, //todo: mahdi
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "SingleAssetRedemptionQueueLib",
+      version: "dev",
+      updateName: [updateName.SINGLE_ASSET_REDEMPTION_QUEUE_LIB_ADDRESS],
+      order: 113,
+      data: {
+        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+
+        gsnTrustedForwardersAddressListId: {
+          value: 598, //todo: mahdi
+          order: 2,
+        },
+        [updateName.GLOBAL_CONFIG_PROXY_ADDRESS]: {
+          value: null,
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "SingleAssetRedemptionQueueFactory",
+      version: "dev",
+      order: 114,
+      data: {
+        [updateName.SINGLE_ASSET_REDEMPTION_QUEUE_LIB_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+      },
+    },
+
+    {
+      name: "SolvBtcYieldTokenRateUsdAggregatorFactory",
+      version: "dev",
+      order: 116,
+    },
+    {
+      name: "StaderSDPriceFeed",
+      version: "dev",
+      order: 117,
+      data: {
+        sdTokenAddress: {
+          value: "0x30D20208d987713f46DFD34EF128Bb16C404D10f",
+          order: 1,
+        },
+        staderOracleAddress: {
+          value: "0xF64bAe65f6f2a5277571143A24FaaFDFC0C2a737",
+          order: 2,
+        },
+        wethAddress: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "StaderStakingAdapter",
+      version: "dev",
+      order: 118,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        staderStakePoolsManagerAddress: {
+          value: "0xcf5EA1b38380f6aF39068375516Daf40Ed70D299",
+          order: 2,
+        },
+
+        ethxAddress: {
+          value: "0xA35b1B31Ce002FBF2058D22F30f95D405200A15b",
+          order: 3,
+        },
+        wethAddress: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 4,
+        },
+      },
+    },
+    {
+      name: "StaderWithdrawalsPositionLib",
+      version: "dev",
+      order: 119,
+      data: {
+        _userWithdrawalManagerAddress: {
+          value: "0x9F0491B32DBce587c50c4C43AB303b06478193A7",
+          order: 1,
+        },
+
+        ethxAddress: {
+          value: "0xA35b1B31Ce002FBF2058D22F30f95D405200A15b",
+          order: 2,
+        },
+        wethAddress: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "StaderWithdrawalsPositionParser",
+      version: "dev",
+      order: 120,
+      data: {
+        ethxAddress: {
+          value: "0xA35b1B31Ce002FBF2058D22F30f95D405200A15b",
+          order: 1,
+        },
+        wethAddress: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "StakeWiseV3StakingPositionLib",
+      version: "dev",
+      order: 121,
+      data: {
+        wethToken: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 1,
+        },
+        _referrer: {
+          value: constructorData.ETHEREUM.ZERO_ADDRESS,
+          order: 2,
+        },
+        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 3,
+        },
+        supportedImplementationsListID: {
+          value: 856,
+          order: 4,
+        },
+      },
+    },
+
+    {
+      name: "StakeWiseV3StakingPositionParser",
+      version: "dev",
+      order: 122,
+      data: {
+        stakeWiseV3VaultsRegistryAddress: {
+          value: "0x3a0008a588772446f6e656133C2D5029CC4FC20E",
+          order: 1,
+        },
+        wethToken: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "SwellStakingAdapter",
+      version: "dev",
+      order: 123,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        swethAddress: {
+          value: "0xf951E335afb289353dc249e82926178EaC7DEd78",
+          order: 2,
+        },
+        wethAddress: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 3,
+        },
+        referralAddress: {
+          value: "0x1ad1fc9964c551f456238Dd88D6a38344B5319D7",
+          order: 4,
+        },
+      },
+    },
+
+    {
+      name: "TermFinanceV1LendingPositionLib",
+      version: "dev",
+      order: 124,
+      data: {
+        referrerAddress: {
+          value: "0x1ad1fc9964c551f456238Dd88D6a38344B5319D7",
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "TermFinanceV1LendingPositionParser",
+      version: "dev",
+      order: 125,
+      data: {
+        termControllerAddress: {
+          value: "0x62f476DBB9B60D9272e26994525F4Db80Fd543e4",
+          order: 1,
+        },
+      },
+    },
+
+    {
+      name: "UniswapV2ExchangeAdapter",
+      version: "dev",
+      order: 126,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        router: {
+          value: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "UniswapV2PoolPriceFeed",
+      version: "dev",
+      order: 127,
+      data: {
+        [updateName.FUND_DEPLOYER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        [updateName.VALUE_INTERPRETER_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+        factory: {
+          value: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+          order: 3,
+        },
+      },
+    },
+    {
+      name: "UsdEthSimulatedAggregator",
+      version: "dev",
+      order: 128,
+      data: {
+        ethUsdAggregator: {
+          value: "0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419",
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "YearnVaultV2PriceFeed",
+      version: "dev",
+      updateName: [updateName.YEARN_VAULT_V2_PRICE_FEED_ADDRESS],
+      order: 129,
+      data: {
+        [updateName.FUND_DEPLOYER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        yearnVaultV2Registry: {
+          value: "0x50c1a2eA0a861A967D9d0FFE2AE4012c2E053804",
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "YearnVaultV2Adapter",
+      version: "dev",
+      order: 130,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        [updateName.YEARN_VAULT_V2_PRICE_FEED_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+      },
+    },
+
+    {
+      name: "ZeroExV4Adapter",
+      version: "dev",
+      order: 131,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        exchange: {
+          value: "0xDef1C0ded9bec7F1a1670819833240f027b25EfF",
+          order: 2,
+        },
+        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 3,
+        },
+        allowedMakersListId: {
+          value: 0,
+          order: 4,
+        },
+      },
+    },
+    {
+      name: "AaveV3FlashLoanAssetManagerFactory",
+      version: "dev",
+      order: 132,
+      path: "DispatcherOwnedBeaconFactory",
+      data: {
+        [updateName.DISPATCHER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+
+        [updateName.AAVE_V3_FLASH_LOAN_ASSET_MANAGER_LIB_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "SingleAssetDepositQueueFactory",
+      version: "dev",
+      order: 133,
+      path: "DispatcherOwnedBeaconFactory",
+      data: {
+        [updateName.DISPATCHER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+
+        [updateName.SINGLE_ASSET_DEPOSIT_QUEUE_LIB_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+      },
+    },
   ];
 
   for (const contractData of contracts) {
-    console.log(contractData);
+    console.log(contractData.name);
+
     await prisma.contract.create({
       data: {
         name: contractData.name,
@@ -1335,6 +2247,7 @@ const seedEthContracts = async () => {
         version: contractData.version,
         order: contractData.order,
         data: contractData.data,
+        path: contractData.path ? contractData.path : contractData.name,
       },
     });
   }

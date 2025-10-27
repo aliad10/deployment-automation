@@ -9,6 +9,11 @@ async function main() {
       chain: "ARBITRUM",
       chainId: 42161,
     },
+    {
+      name: "ethereum-deployment",
+      chain: "ETHEREUM",
+      chainId: 1,
+    },
   ];
 
   for (const deployment of deploymentData) {

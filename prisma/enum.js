@@ -19,6 +19,19 @@ const updateName = {
   INTEGRATION_MANAGER_ADDRESS: "integrationManagerAddress",
   AAVE_V3_FLASH_LOAN_ASSET_MANAGER_LIB_ADDRESS:
     "aaveV3FlashLoanAssetManagerLibAddress",
+  CHAIN_LINK_LIKE_WSTETH_PRICE_FEED_ADDRESS:
+    "chainlinkLikeWstethPriceFeedAddress",
+  COMPOUND_PRICE_FEED_ADDRESS: "CompoundPriceFeedAddress",
+  FUND_VALUE_CALCULATOR_ROUTER_ADDRESS: "fundValueCalculatorRouterAddress",
+  GLOBAL_CONFIG_PROXY_ADDRESS: "globalConfigProxyAddress",
+  GATED_REDEMPTION_QUEUE_SHARES_WRAPPER_LIB_ADDRESS:
+    "gatedRedemptionQueueSharesWrapperLibAddress",
+  SHARE_PRICE_THROTTLED_ASSET_MANAGER_LIB_ADDRESS:
+    "sharePriceThrottledAssetManagerLibAddress",
+  SINGLE_ASSET_REDEMPTION_QUEUE_LIB_ADDRESS:
+    "singleAssetRedemptionQueueLibAddress",
+  YEARN_VAULT_V2_PRICE_FEED_ADDRESS: "yearnVaultV2PriceFeedAddress",
+  SINGLE_ASSET_DEPOSIT_QUEUE_LIB_ADDRESS: "singleAssetDepositQueueLibAddress",
 };
 
 const constructorDataUpdateName = {

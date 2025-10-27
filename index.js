@@ -51,9 +51,9 @@ async function main(deploymentName) {
 
     while (attempt < maxRetries && !deployed) {
       try {
-        const artifact = JSON.parse(
+        const artifact = itemJSON.parse(
           fs.readFileSync(
-            `./abi/${item.version}/artifacts/${item.name}.sol/${item.name}.json`,
+            `./abi/${item.version}/artifacts/${item.path}.sol/${item.path}.json`,
             "utf8"
           )
         );
