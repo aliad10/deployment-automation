@@ -61,11 +61,11 @@ const seedEthContracts = async () => {
           order: 1,
         },
         relayHub: {
-          value: constructorData.ETHEREUM.RELAY_HUB,
+          value: constructorData.ETHEREUM.RELAY_HUB, // reza
           order: 2,
         },
         trustedForwarder: {
-          value: constructorData.ETHEREUM.TRUSTED_FORWARDER,
+          value: constructorData.ETHEREUM.TRUSTED_FORWARDER, // reza
           order: 3,
         },
         depositCooldown: {
@@ -377,10 +377,7 @@ const seedEthContracts = async () => {
     {
       name: "ProtocolFeeReserveProxy",
       version: "dev",
-      updateName: [
-        updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS,
-        updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS_2,
-      ],
+      updateName: [updateName.PROTOCOL_FEE_RESERVE_PROXY_ADDRESS],
       order: 24,
       data: {
         [constructorDataUpdateName.DISPATCHER]: {
@@ -466,7 +463,7 @@ const seedEthContracts = async () => {
         },
       },
     },
-    ///
+
     {
       name: "NoDepegOnRedeemSharesForSpecificAssetsPolicy",
       version: "dev",
@@ -826,25 +823,25 @@ const seedEthContracts = async () => {
         },
       },
     },
-    // {
-    //   name: "AaveV3DebtPositionParser",
-    //   version: "dev",
-    //   order: 500000000000000000,
-    //   data: {
-    //     [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
-    //       value: null,
-    //       order: 1,
-    //     },
-    //     aTokenListId: {
-    //       value: 463, //todo: mahdi
-    //       order: 2,
-    //     },
-    //   },
-    // },
+    {
+      name: "AaveV3DebtPositionParser",
+      version: "dev",
+      order: 51,
+      data: {
+        [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        aTokenListId: {
+          value: 463, //todo: check number
+          order: 2,
+        },
+      },
+    },
     {
       name: "BalancerV2LiquidityAdapter",
       version: "dev",
-      order: 51,
+      order: 52,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -867,7 +864,7 @@ const seedEthContracts = async () => {
     {
       name: "UniswapV3LiquidityPositionParser",
       version: "dev",
-      order: 52,
+      order: 53,
       data: {
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
           value: null,
@@ -882,7 +879,7 @@ const seedEthContracts = async () => {
     {
       name: "UniswapV3Adapter",
       version: "dev",
-      order: 53,
+      order: 54,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -897,15 +894,13 @@ const seedEthContracts = async () => {
     {
       name: "AaveV3DebtPositionLib",
       version: "dev",
-      order: 54,
+      order: 55,
       data: {
         dataProviderAddress: {
-          //ts-check IAaveV3ProtocolDataProvider interface
           value: "0x41393e5e337606dc3821075Af65AeE84D7688CBD",
           order: 1,
         },
         lendingPoolAddressProviderAddress: {
-          //ts-check IAaveV3PoolAddressProvider interface
           value: "0x2f39d218133AFaB8F2B819B1066c7E434Ad94E9e",
           order: 2,
         },
@@ -918,7 +913,6 @@ const seedEthContracts = async () => {
           order: 4,
         },
         rewardsControllerAddress: {
-          //ts-check IAaveV3RewardsController interface
           value: "0x8164Cc65827dcFe994AB23944CBC90e0aa80bFcb",
           order: 5,
         },
@@ -927,7 +921,7 @@ const seedEthContracts = async () => {
     {
       name: "ParaSwapV5Adapter",
       version: "dev",
-      order: 55,
+      order: 56,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -1043,11 +1037,10 @@ const seedEthContracts = async () => {
           order: 1,
         },
         allowedExchangesListId: {
-          value: 553,
+          value: 553, //todo: check number
           order: 2,
         },
         wrappedNativeAssetAddress: {
-          //ts-check IWETH interface
           value: constructorData.ETHEREUM.WETH,
           order: 3,
         },
@@ -1105,7 +1098,7 @@ const seedEthContracts = async () => {
     {
       name: "ComptrollerLib",
       version: "dev",
-      order: 65,
+      order: 64,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -1156,7 +1149,7 @@ const seedEthContracts = async () => {
     {
       name: "BalancerV2WeightedPoolPriceFeed",
       version: "dev",
-      order: 66,
+      order: 65,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
           value: null,
@@ -1183,7 +1176,7 @@ const seedEthContracts = async () => {
     {
       name: "AaveV3Adapter",
       version: "dev",
-      order: 67,
+      order: 66,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -1194,7 +1187,7 @@ const seedEthContracts = async () => {
           order: 2,
         },
         aTokenListId: {
-          value: 463, //@todo: mahdi
+          value: 463, //@todo: check number
           order: 3,
         },
         pool: {
@@ -1210,7 +1203,7 @@ const seedEthContracts = async () => {
     {
       name: "ParaSwapV6Adapter",
       version: "dev",
-      order: 68,
+      order: 67,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -1225,7 +1218,7 @@ const seedEthContracts = async () => {
     {
       name: "AaveDebtPositionLib",
       version: "dev",
-      order: 70,
+      order: 68,
       data: {
         aaveDataProvider: {
           value: "0x057835Ad21a177dbdd3090bB1CAE03EaCF78Fc6d",
@@ -1244,7 +1237,7 @@ const seedEthContracts = async () => {
     {
       name: "AaveDebtPositionParser",
       version: "dev",
-      order: 71,
+      order: 69,
       data: {
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
           value: null,
@@ -1255,7 +1248,7 @@ const seedEthContracts = async () => {
     {
       name: "AaveV2Adapter",
       version: "dev",
-      order: 72,
+      order: 70,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -1266,7 +1259,7 @@ const seedEthContracts = async () => {
           order: 2,
         },
         aTokenListId: {
-          value: 462, //@todo: mahdi
+          value: 462, //@todo: check number
           order: 3,
         },
         lendingPool: {
@@ -1278,7 +1271,7 @@ const seedEthContracts = async () => {
     {
       name: "AaveV2ATokenListOwner",
       version: "dev",
-      order: 73,
+      order: 71,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
@@ -1288,7 +1281,7 @@ const seedEthContracts = async () => {
           value: "Aave v2: aTokens",
           order: 2,
         },
-        poolAddressProvider: {
+        lendingPoolAddressProvider: {
           value: "0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5",
           order: 3,
         },
@@ -1297,7 +1290,7 @@ const seedEthContracts = async () => {
     {
       name: "AlicePositionLib",
       version: "dev",
-      order: 74,
+      order: 72,
       data: {
         aliceOrderManagerAddress: {
           value: "0x841473a19279E54a850E9083A3A57dE9e6244d2E",
@@ -1312,7 +1305,7 @@ const seedEthContracts = async () => {
     {
       name: "AlicePositionParser",
       version: "dev",
-      order: 75,
+      order: 73,
       data: {
         aliceOrderManagerAddress: {
           value: "0x841473a19279E54a850E9083A3A57dE9e6244d2E",
@@ -1327,7 +1320,7 @@ const seedEthContracts = async () => {
     {
       name: "ArbitraryLoanPositionLib",
       version: "dev",
-      order: 76,
+      order: 74,
       data: {
         wrappedNativeAsset: {
           value: constructorData.ETHEREUM.WETH,
@@ -1338,18 +1331,18 @@ const seedEthContracts = async () => {
     {
       name: "ArbitraryLoanPositionParser",
       version: "dev",
-      order: 77,
+      order: 75,
     },
     {
       name: "ArbitraryLoanTotalNominalDeltaOracleModule",
       version: "dev",
-      order: 78,
+      order: 76,
     },
 
     {
       name: "AssetValueCalculator",
       version: "dev",
-      order: 79,
+      order: 77,
       data: {
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
           value: null,
@@ -1361,7 +1354,7 @@ const seedEthContracts = async () => {
       name: "ChainlinkLikeWstethPriceFeed",
       version: "dev",
       updateName: [updateName.CHAIN_LINK_LIKE_WSTETH_PRICE_FEED_ADDRESS],
-      order: 80,
+      order: 78,
       data: {
         steth: {
           value: "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
@@ -1376,7 +1369,7 @@ const seedEthContracts = async () => {
     {
       name: "ChainlinkLikeYnEthPriceFeed",
       version: "dev",
-      order: 81,
+      order: 79,
       data: {
         curveYnethWstethPool: {
           value: "0x19B8524665aBAC613D82eCE5D8347BA44C714bDd",
@@ -1392,7 +1385,7 @@ const seedEthContracts = async () => {
       name: "CompoundPriceFeed",
       version: "dev",
       updateName: [updateName.COMPOUND_PRICE_FEED_ADDRESS],
-      order: 82,
+      order: 80,
 
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
@@ -1403,7 +1396,6 @@ const seedEthContracts = async () => {
           value: constructorData.ETHEREUM.WETH,
           order: 2,
         },
-
         ceth: {
           value: "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5",
           order: 3,
@@ -1413,7 +1405,7 @@ const seedEthContracts = async () => {
     {
       name: "CompoundDebtPositionLib",
       version: "dev",
-      order: 83,
+      order: 81,
       data: {
         compoundComptroller: {
           value: "0x3d9819210A31b4961b30EF54bE2aeD79B9c9Cd3B",
@@ -1433,7 +1425,7 @@ const seedEthContracts = async () => {
     {
       name: "CompoundDebtPositionParser",
       version: "dev",
-      order: 84,
+      order: 82,
       data: {
         [updateName.COMPOUND_PRICE_FEED_ADDRESS]: {
           value: null,
@@ -1454,7 +1446,7 @@ const seedEthContracts = async () => {
     {
       name: "CompoundAdapter",
       version: "dev",
-      order: 84,
+      order: 83,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -1474,7 +1466,7 @@ const seedEthContracts = async () => {
     {
       name: "CompoundV3Adapter",
       version: "dev",
-      order: 85,
+      order: 84,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -1486,22 +1478,22 @@ const seedEthContracts = async () => {
         },
         compoundV3Rewards: {
           value: "0x1B0e765F6224C21223AeA2af16c1C46E38885a40",
-          order: 2,
+          order: 3,
         },
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
-          order: 3,
+          order: 4,
         },
         cTokenListId: {
-          value: 436, //todo: mahdi
-          order: 2,
+          value: 436, //todo: check number
+          order: 5,
         },
       },
     },
     {
       name: "CompoundV3CTokenListOwner",
       version: "dev",
-      order: 86,
+      order: 85,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
@@ -1521,12 +1513,12 @@ const seedEthContracts = async () => {
     {
       name: "ConvertedQuoteAggregatorFactory",
       version: "dev",
-      order: 87,
+      order: 86,
     },
     {
       name: "ConvexVotingPositionLib",
       version: "dev",
-      order: 88,
+      order: 87,
       data: {
         vlCvx: {
           value: "0x72a19342e8F1838460eBFCCEf09F6585e32db86E",
@@ -1558,7 +1550,7 @@ const seedEthContracts = async () => {
     {
       name: "ConvexVotingPositionParser",
       version: "dev",
-      order: 89,
+      order: 88,
       data: {
         cvxToken: {
           value: "0x4e3FBD56CD56c3e72c1403e103b45Db9da5B9D2B",
@@ -1569,7 +1561,7 @@ const seedEthContracts = async () => {
     {
       name: "EnzymeVaultPriceFeed",
       version: "dev",
-      order: 90,
+      order: 89,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -1655,6 +1647,9 @@ const seedEthContracts = async () => {
     {
       name: "GatedRedemptionQueueSharesWrapperLib",
       version: "dev",
+      updateName: [
+        updateName.GATED_REDEMPTION_QUEUE_SHARES_WRAPPER_LIB_ADDRESS,
+      ],
       order: 96,
       data: {
         [updateName.GLOBAL_CONFIG_PROXY_ADDRESS]: {
@@ -1670,9 +1665,6 @@ const seedEthContracts = async () => {
     {
       name: "GatedRedemptionQueueSharesWrapperFactory",
       version: "dev",
-      updateName: [
-        updateName.GATED_REDEMPTION_QUEUE_SHARES_WRAPPER_LIB_ADDRESS,
-      ],
 
       order: 97,
       data: {
@@ -1711,7 +1703,7 @@ const seedEthContracts = async () => {
           order: 1,
         },
         stakingContractsListId: {
-          value: 400, //todo: mahdi
+          value: 400, //todo: check number
           order: 2,
         },
         weth: {
@@ -1741,7 +1733,7 @@ const seedEthContracts = async () => {
       order: 101,
       data: {
         stethAddress: {
-          value: "0x889edC2eDab5f40e902b864aD4d7AdE8E412F9B1",
+          value: "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
           order: 1,
         },
         wethAddress: {
@@ -1772,7 +1764,7 @@ const seedEthContracts = async () => {
       order: 104,
       data: {
         allowedMorphoBlueVaultsListId: {
-          value: 3,
+          value: 3, //todo : check number
           order: 1,
         },
         morphoBlueAddress: {
@@ -1842,8 +1834,8 @@ const seedEthContracts = async () => {
           value: null,
           order: 1,
         },
-        pendleRouterAddress: {
-          value: 598,
+        gsnTrustedForwardersAddressListId: {
+          value: 598, //todo : check number
           order: 2,
         },
         [updateName.FUND_VALUE_CALCULATOR_ROUTER_ADDRESS]: {
@@ -1891,7 +1883,7 @@ const seedEthContracts = async () => {
         },
 
         gsnTrustedForwardersAddressListId: {
-          value: 598, //todo: mahdi
+          value: 598, //todo: check number
           order: 3,
         },
       },
@@ -1908,7 +1900,7 @@ const seedEthContracts = async () => {
         },
 
         gsnTrustedForwardersAddressListId: {
-          value: 598, //todo: mahdi
+          value: 598, //todo: check number
           order: 2,
         },
         [updateName.GLOBAL_CONFIG_PROXY_ADDRESS]: {
@@ -1924,6 +1916,18 @@ const seedEthContracts = async () => {
       data: {
         [updateName.SINGLE_ASSET_REDEMPTION_QUEUE_LIB_ADDRESS]: {
           value: null,
+          order: 1,
+        },
+      },
+    },
+
+    {
+      name: "SmarDexUsdnNativeRateUsdAggregator",
+      version: "dev",
+      order: 115,
+      data: {
+        usdnProtocolAddress: {
+          value: "0x656cB8C6d154Aad29d8771384089be5B5141f01a",
           order: 1,
         },
       },
@@ -1982,7 +1986,7 @@ const seedEthContracts = async () => {
       version: "dev",
       order: 119,
       data: {
-        _userWithdrawalManagerAddress: {
+        userWithdrawalManagerAddress: {
           value: "0x9F0491B32DBce587c50c4C43AB303b06478193A7",
           order: 1,
         },
@@ -2021,7 +2025,7 @@ const seedEthContracts = async () => {
           value: constructorData.ETHEREUM.WETH,
           order: 1,
         },
-        _referrer: {
+        referrer: {
           value: constructorData.ETHEREUM.ZERO_ADDRESS,
           order: 2,
         },
@@ -2030,7 +2034,7 @@ const seedEthContracts = async () => {
           order: 3,
         },
         supportedImplementationsListID: {
-          value: 856,
+          value: 856, //todo: check number
           order: 4,
         },
       },

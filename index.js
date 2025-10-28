@@ -51,7 +51,7 @@ async function main(deploymentName) {
 
     while (attempt < maxRetries && !deployed) {
       try {
-        const artifact = itemJSON.parse(
+        const artifact = JSON.parse(
           fs.readFileSync(
             `./abi/${item.version}/artifacts/${item.path}.sol/${item.path}.json`,
             "utf8"
@@ -220,7 +220,7 @@ async function main(deploymentName) {
   }
 }
 
-main("sepolia-deployment")
+main("ethereum-deployment")
   .catch((e) => {
     throw e;
   })
