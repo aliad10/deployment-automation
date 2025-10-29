@@ -1216,6 +1216,21 @@ const seedEthContracts = async () => {
         },
       },
     },
+    {
+      name: "ThreeOneThirdAdapter",
+      version: "dev",
+      order: 68,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        batchTradeAddress: {
+          value: "0xD20c024560ccA40288C05BAB650ac087ae9b0f6e",
+          order: 2,
+        },
+      },
+    },
   ];
 
   for (const contractData of contracts) {
