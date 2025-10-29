@@ -1175,8 +1175,23 @@ const seedArbitrumContracts = async () => {
 
   for (const contractData of contracts) {
     console.log(contractData);
-    await prisma.contract.create({
-      data: {
+    await prisma.contract.upsert({
+      where: {
+        chain_name: {
+          chain: "ARBITRUM",
+          name: contractData.name,
+        },
+      },
+      update: {
+        updateName: contractData.updateName,
+        constructorDataUpdateName: contractData.constructorDataUpdateName,
+        chainId: 42161,
+        version: contractData.version,
+        order: contractData.order,
+        data: contractData.data,
+        path: contractData.path ? contractData.path : contractData.name,
+      },
+      create: {
         name: contractData.name,
         updateName: contractData.updateName,
         constructorDataUpdateName: contractData.constructorDataUpdateName,
@@ -1185,6 +1200,7 @@ const seedArbitrumContracts = async () => {
         version: contractData.version,
         order: contractData.order,
         data: contractData.data,
+        path: contractData.path ? contractData.path : contractData.name,
       },
     });
   }

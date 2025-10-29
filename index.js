@@ -1,5 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-const { getConstructorValues, getConstructorDataValue } = require("./heper");
+const { getConstructorValues, getConstructorDataValue } = require("./helper");
 const { ethers } = require("ethers");
 
 require("dotenv").config();
@@ -14,6 +14,12 @@ async function main(deploymentName) {
       name: deploymentName,
     },
   });
+
+  if (!deploymentData) {
+    throw new Error(
+      `Deployment "${deploymentName}" not found. Please seed deployments first with: make seed-deployment`
+    );
+  }
 
   let contractOrder = 0;
 
@@ -40,7 +46,25 @@ async function main(deploymentName) {
     },
   });
 
-  const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
+  // Dynamically get RPC URL based on chain, fallback to generic RPC_URL
+  const rpcUrlEnvKey = `RPC_URL_${deploymentData.chain}`;
+  const rpcUrl = process.env[rpcUrlEnvKey] || process.env.RPC_URL;
+  
+  if (!rpcUrl) {
+    throw new Error(
+      `RPC URL not found. Please set ${rpcUrlEnvKey} or RPC_URL in your .env file`
+    );
+  }
+
+  console.log(`Using RPC URL for chain: ${deploymentData.chain}`);
+  
+  if (contracts.length === 0) {
+    console.log(`✅ No contracts to deploy for ${deploymentName}. All contracts are already deployed.`);
+    return;
+  }
+
+  console.log(`Found ${contracts.length} contract(s) to deploy`);
+  const provider = new ethers.JsonRpcProvider(rpcUrl);
   const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
 
   for (const item of contracts) {
@@ -218,9 +242,90 @@ async function main(deploymentName) {
       }
     }
   }
+
+  // Generate CSV file after deployment
+  await generateCSV(deploymentData);
 }
 
-main("ethereum-deployment")
+async function generateCSV(deploymentData) {
+  try {
+    const deployedContracts = await prisma.deployedContract.findMany({
+      where: {
+        deploymentId: deploymentData.id,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    if (deployedContracts.length === 0) {
+      console.log("No deployed contracts found. Skipping CSV generation.");
+      return;
+    }
+
+    // CSV headers
+    const headers = [
+      "Contract Name",
+      "Contract Address",
+      "Gas Used",
+      "Fee (Wei)",
+      "Fee (ETH)",
+      "Chain",
+      "Chain ID",
+      "Deployment Name",
+      "Deployed At",
+    ];
+
+    // CSV rows
+    const rows = deployedContracts.map((contract) => {
+      const feeEth = ethers.formatEther(contract.fee.toString());
+      const deployedAt = contract.createdAt.toISOString();
+
+      return [
+        contract.contractName,
+        contract.address,
+        contract.gasUsed.toString(),
+        contract.fee.toString(),
+        feeEth,
+        deploymentData.chain,
+        deploymentData.chainId.toString(),
+        deploymentData.name,
+        deployedAt,
+      ];
+    });
+
+    // Escape CSV fields (handle commas, quotes, newlines)
+    const escapeCsvField = (field) => {
+      if (typeof field !== "string") field = String(field);
+      if (field.includes(",") || field.includes('"') || field.includes("\n")) {
+        return `"${field.replace(/"/g, '""')}"`;
+      }
+      return field;
+    };
+
+    // Build CSV content
+    const csvContent = [
+      headers.map(escapeCsvField).join(","),
+      ...rows.map((row) => row.map(escapeCsvField).join(",")),
+    ].join("\n");
+
+    // Generate filename with timestamp
+    const timestamp = new Date().toISOString().replace(/[:.]/g, "-").split("T")[0];
+    const filename = `deployment-${deploymentData.name}-${timestamp}.csv`;
+
+    // Write CSV file
+    fs.writeFileSync(filename, csvContent, "utf8");
+    console.log(`\n📄 CSV file generated: ${filename}`);
+    console.log(`   Total contracts: ${deployedContracts.length}`);
+  } catch (error) {
+    console.error("❌ Error generating CSV file:", error);
+    // Don't throw - CSV generation failure shouldn't break deployment
+  }
+}
+
+const deploymentName = process.argv[2] || "ethereum-deployment";
+
+main(deploymentName)
   .catch((e) => {
     throw e;
   })

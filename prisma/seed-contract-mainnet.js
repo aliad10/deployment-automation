@@ -2241,12 +2241,27 @@ const seedEthContracts = async () => {
   for (const contractData of contracts) {
     console.log(contractData.name);
 
-    await prisma.contract.create({
-      data: {
+    await prisma.contract.upsert({
+      where: {
+        chain_name: {
+          chain: "ETHEREUM",
+          name: contractData.name,
+        },
+      },
+      update: {
+        updateName: contractData.updateName,
+        constructorDataUpdateName: contractData.constructorDataUpdateName,
+        chainId: 1,
+        version: contractData.version,
+        order: contractData.order,
+        data: contractData.data,
+        path: contractData.path ? contractData.path : contractData.name,
+      },
+      create: {
         name: contractData.name,
         updateName: contractData.updateName,
         constructorDataUpdateName: contractData.constructorDataUpdateName,
-        chain: "MAINNET",
+        chain: "ETHEREUM",
         chainId: 1,
         version: contractData.version,
         order: contractData.order,
