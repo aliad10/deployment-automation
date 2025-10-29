@@ -1038,7 +1038,7 @@ const seedEthContracts = async () => {
           order: 1,
         },
         allowedExchangesListId: {
-          value: 553,
+          value: 5,
           order: 2,
         },
         wrappedNativeAssetAddress: {
