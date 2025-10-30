@@ -1,37 +1,37 @@
 const { callContract, resolveAddressFromDb, colors } = require("../core/runner");
 require("dotenv").config();
 
-// Minimal ABI for IDispatcher.setCurrentFundDeployer(address)
-const DISPATCHER_ABI = [
-  "function setCurrentFundDeployer(address fundDeployer) external",
+// Minimal ABI for IAddressListRegistry.addToList(uint256,address[])
+const REGISTRY_ABI = [
+  "function addToList(uint256 listId, address[] items) external",
 ];
 
-async function runSetCurrentFund() {
-  // Resolve dispatcher and fundDeployer strictly from DB (latest deployment)
-  const resolvedDispatcher = await resolveAddressFromDb({
-    contractName: "Dispatcher",
-  });
+// Static values matching addToList.s.sol
+const LIST_ID = 5; // ALLOWED_EXCHANGES_LIST_ID
+const ITEMS = [
+  "0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57",
+];
 
-  const resolvedFundDeployer = await resolveAddressFromDb({
-    contractName: "FundDeployer",
-  });
+async function runAddToList() {
+  const registryAddress = await resolveAddressFromDb({ contractName: "AddressListRegistry" });
 
-  console.log(colors.cyan(`Dispatcher: ${resolvedDispatcher}`));
-  console.log(colors.cyan(`FundDeployer: ${resolvedFundDeployer}`));
+  console.log(colors.cyan(`AddressListRegistry: ${registryAddress}`));
+  console.log(colors.cyan(`List ID: ${LIST_ID}`));
+  console.log(colors.cyan(`Items: ${ITEMS.length}`));
 
   const { txHash, receipt, rpcUrl, staticResult, estimatedGas, simulation, explorerUrl, noOp } = await callContract({
-    contractAddress: resolvedDispatcher,
-    abi: DISPATCHER_ABI,
-    method: "setCurrentFundDeployer",
-    args: [resolvedFundDeployer],
-    noOpRevertMatchers: [/already.*currentfunddeployer/i],
+    contractAddress: registryAddress,
+    abi: REGISTRY_ABI,
+    method: "addToList",
+    args: [LIST_ID, ITEMS],
+    noOpRevertMatchers: [/already.*listed|duplicate/i],
   });
 
   console.log(colors.cyan(`Using RPC: ${rpcUrl}`));
   if (simulation?.reverted) {
     console.log(colors.red(`Simulation reverted: ${simulation.reason || '<no reason provided>'}`));
     if (noOp) {
-      console.log(colors.yellow("No-op: Dispatcher already set to this FundDeployer. Skipping transaction."));
+      console.log(colors.yellow("No-op: Some or all items already in list. Skipping transaction."));
       return;
     }
     console.log(colors.red("Aborting without sending transaction due to simulation revert."));
@@ -44,9 +44,8 @@ async function runSetCurrentFund() {
   console.log(colors.green(`Confirmed in block ${receipt.blockNumber}`));
 }
 
-// CLI entry
 async function main() {
-  await runSetCurrentFund();
+  await runAddToList();
 }
 
 if (require.main === module) {
@@ -56,6 +55,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { runSetCurrentFund };
-
-
+module.exports = { runAddToList };

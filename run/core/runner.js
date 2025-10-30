@@ -44,6 +44,7 @@ async function callContract({
   rpcUrl,
   simulate = true,
   failOnRevert = false,
+  noOpRevertMatchers = [], // array of RegExp or (reason: string) => boolean
 }) {
   const { wallet, rpcUrl: usedRpc } = await getWalletAndProvider(rpcUrl);
   const contract = getContract(contractAddress, abi, wallet);
@@ -84,7 +85,16 @@ async function callContract({
 
   // If simulation reverted and we're not failing, return without sending
   if (simulation.reverted) {
-    return { rpcUrl: usedRpc, staticResult, estimatedGas, simulation, chainId };
+    const reasonLower = (simulation.reason || '').toLowerCase();
+    const matched = Array.isArray(noOpRevertMatchers) && noOpRevertMatchers.some((m) => {
+      if (!m) return false;
+      if (m instanceof RegExp) return m.test(reasonLower);
+      if (typeof m === 'function') {
+        try { return !!m(reasonLower); } catch { return false; }
+      }
+      return false;
+    });
+    return { rpcUrl: usedRpc, staticResult, estimatedGas, simulation, chainId, noOp: matched };
   }
 
   const tx = await contract[method](...args);

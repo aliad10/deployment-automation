@@ -1,37 +1,31 @@
 const { callContract, resolveAddressFromDb, colors } = require("../core/runner");
 require("dotenv").config();
 
-// Minimal ABI for IDispatcher.setCurrentFundDeployer(address)
-const DISPATCHER_ABI = [
-  "function setCurrentFundDeployer(address fundDeployer) external",
+// Minimal ABI for IFundDeployer.setProtocolFeeTracker(address)
+const FUND_DEPLOYER_ABI = [
+  "function setProtocolFeeTracker(address protocolFeeTracker) external",
 ];
 
-async function runSetCurrentFund() {
-  // Resolve dispatcher and fundDeployer strictly from DB (latest deployment)
-  const resolvedDispatcher = await resolveAddressFromDb({
-    contractName: "Dispatcher",
-  });
+async function runSetProtocolFeeTracker() {
+  const resolvedFundDeployer = await resolveAddressFromDb({ contractName: "FundDeployer" });
+  const resolvedProtocolFeeTracker = await resolveAddressFromDb({ contractName: "ProtocolFeeTracker" });
 
-  const resolvedFundDeployer = await resolveAddressFromDb({
-    contractName: "FundDeployer",
-  });
-
-  console.log(colors.cyan(`Dispatcher: ${resolvedDispatcher}`));
   console.log(colors.cyan(`FundDeployer: ${resolvedFundDeployer}`));
+  console.log(colors.cyan(`ProtocolFeeTracker: ${resolvedProtocolFeeTracker}`));
 
   const { txHash, receipt, rpcUrl, staticResult, estimatedGas, simulation, explorerUrl, noOp } = await callContract({
-    contractAddress: resolvedDispatcher,
-    abi: DISPATCHER_ABI,
-    method: "setCurrentFundDeployer",
-    args: [resolvedFundDeployer],
-    noOpRevertMatchers: [/already.*currentfunddeployer/i],
+    contractAddress: resolvedFundDeployer,
+    abi: FUND_DEPLOYER_ABI,
+    method: "setProtocolFeeTracker",
+    args: [resolvedProtocolFeeTracker],
+    noOpRevertMatchers: [/already.*protocol.*fee.*tracker/i],
   });
 
   console.log(colors.cyan(`Using RPC: ${rpcUrl}`));
   if (simulation?.reverted) {
     console.log(colors.red(`Simulation reverted: ${simulation.reason || '<no reason provided>'}`));
     if (noOp) {
-      console.log(colors.yellow("No-op: Dispatcher already set to this FundDeployer. Skipping transaction."));
+      console.log(colors.yellow("No-op: ProtocolFeeTracker already set. Skipping transaction."));
       return;
     }
     console.log(colors.red("Aborting without sending transaction due to simulation revert."));
@@ -46,7 +40,7 @@ async function runSetCurrentFund() {
 
 // CLI entry
 async function main() {
-  await runSetCurrentFund();
+  await runSetProtocolFeeTracker();
 }
 
 if (require.main === module) {
@@ -56,6 +50,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { runSetCurrentFund };
-
-
+module.exports = { runSetProtocolFeeTracker };

@@ -1,37 +1,34 @@
 const { callContract, resolveAddressFromDb, colors } = require("../core/runner");
 require("dotenv").config();
 
-// Minimal ABI for IDispatcher.setCurrentFundDeployer(address)
-const DISPATCHER_ABI = [
-  "function setCurrentFundDeployer(address fundDeployer) external",
+// Minimal ABI for IValueInterpreter.setEthUsdAggregator(address)
+const VALUE_INTERPRETER_ABI = [
+  "function setEthUsdAggregator(address aggregator) external",
 ];
 
-async function runSetCurrentFund() {
-  // Resolve dispatcher and fundDeployer strictly from DB (latest deployment)
-  const resolvedDispatcher = await resolveAddressFromDb({
-    contractName: "Dispatcher",
-  });
+async function runSetEthUsd({ aggregator } = {}) {
+  const resolvedValueInterpreter = await resolveAddressFromDb({ contractName: "ValueInterpreter" });
 
-  const resolvedFundDeployer = await resolveAddressFromDb({
-    contractName: "FundDeployer",
-  });
+  if (!aggregator) {
+    throw new Error("Provide aggregator address as first CLI argument");
+  }
 
-  console.log(colors.cyan(`Dispatcher: ${resolvedDispatcher}`));
-  console.log(colors.cyan(`FundDeployer: ${resolvedFundDeployer}`));
+  console.log(colors.cyan(`ValueInterpreter: ${resolvedValueInterpreter}`));
+  console.log(colors.cyan(`ETH/USD Aggregator: ${aggregator}`));
 
   const { txHash, receipt, rpcUrl, staticResult, estimatedGas, simulation, explorerUrl, noOp } = await callContract({
-    contractAddress: resolvedDispatcher,
-    abi: DISPATCHER_ABI,
-    method: "setCurrentFundDeployer",
-    args: [resolvedFundDeployer],
-    noOpRevertMatchers: [/already.*currentfunddeployer/i],
+    contractAddress: resolvedValueInterpreter,
+    abi: VALUE_INTERPRETER_ABI,
+    method: "setEthUsdAggregator",
+    args: [aggregator],
+    noOpRevertMatchers: [/already.*(eth|usd).*aggregator/i],
   });
 
   console.log(colors.cyan(`Using RPC: ${rpcUrl}`));
   if (simulation?.reverted) {
     console.log(colors.red(`Simulation reverted: ${simulation.reason || '<no reason provided>'}`));
     if (noOp) {
-      console.log(colors.yellow("No-op: Dispatcher already set to this FundDeployer. Skipping transaction."));
+      console.log(colors.yellow("No-op: ETH/USD aggregator already set. Skipping transaction."));
       return;
     }
     console.log(colors.red("Aborting without sending transaction due to simulation revert."));
@@ -46,7 +43,8 @@ async function runSetCurrentFund() {
 
 // CLI entry
 async function main() {
-  await runSetCurrentFund();
+  const [aggregator] = process.argv.slice(2);
+  await runSetEthUsd({ aggregator });
 }
 
 if (require.main === module) {
@@ -56,6 +54,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { runSetCurrentFund };
-
-
+module.exports = { runSetEthUsd };
