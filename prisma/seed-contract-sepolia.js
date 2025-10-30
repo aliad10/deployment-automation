@@ -27,99 +27,99 @@ const seedEthSepoliaContracts = async () => {
       },
     },
 
-    // {
-    //   name: "AddressListRegistry",
-    //   version: "dev",
-    //   order: 3,
-    //   updateName: [updateName.ADDRESS_LIST_REGISTRY_ADDRESS],
-    //   data: {
-    //     [updateName.DISPATCHER_ADDRESS]: {
-    //       value: null,
-    //       order: 1,
-    //     },
-    //   },
-    // },
-    // {
-    //   name: "ExternalPositionFactory",
-    //   version: "dev",
-    //   updateName: [updateName.EXTERNAL_POSITION_FACTORY_ADDRESS],
-    //   order: 4,
-    //   data: {
-    //     [updateName.DISPATCHER_ADDRESS]: {
-    //       value: null,
-    //       order: 1,
-    //     },
-    //   },
-    // },
-    // {
-    //   name: "GasRelayPaymasterLib",
-    //   version: "dev",
-    //   updateName: [updateName.GAS_RELAY_PAYMASTER_LIB_ADDRESS],
-    //   order: 5,
-    //   data: {
-    //     wethToken: {
-    //       value: constructorData.ETHEREUM.WETH,
-    //       order: 1,
-    //     },
-    //     relayHub: {
-    //       value: constructorData.ETHEREUM.RELAY_HUB, // reza
-    //       order: 2,
-    //     },
-    //     trustedForwarder: {
-    //       value: constructorData.ETHEREUM.TRUSTED_FORWARDER, // reza
-    //       order: 3,
-    //     },
-    //     depositCooldown: {
-    //       value: 86400,
-    //       order: 4,
-    //     },
-    //     depositMaxTotal: {
-    //       value: ethers.parseEther("1"),
-    //       order: 5,
-    //     },
-    //     relayFeeMaxBase: {
-    //       value: 0,
-    //       order: 6,
-    //     },
-    //     relayFeeMaxPercent: {
-    //       value: 10,
-    //       order: 7,
-    //     },
-    //   },
-    // },
+    {
+      name: "AddressListRegistry",
+      version: "dev",
+      order: 3,
+      updateName: [updateName.ADDRESS_LIST_REGISTRY_ADDRESS],
+      data: {
+        [updateName.DISPATCHER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "ExternalPositionFactory",
+      version: "dev",
+      updateName: [updateName.EXTERNAL_POSITION_FACTORY_ADDRESS],
+      order: 4,
+      data: {
+        [updateName.DISPATCHER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+      },
+    },
+    {
+      name: "GasRelayPaymasterLib",
+      version: "dev",
+      updateName: [updateName.GAS_RELAY_PAYMASTER_LIB_ADDRESS],
+      order: 5,
+      data: {
+        wethToken: {
+          value: constructorData.ETHEREUM.WETH,
+          order: 1,
+        },
+        relayHub: {
+          value: constructorData.ETHEREUM.RELAY_HUB, // reza
+          order: 2,
+        },
+        trustedForwarder: {
+          value: constructorData.ETHEREUM.TRUSTED_FORWARDER, // reza
+          order: 3,
+        },
+        depositCooldown: {
+          value: 86400,
+          order: 4,
+        },
+        depositMaxTotal: {
+          value: ethers.parseEther("1"),
+          order: 5,
+        },
+        relayFeeMaxBase: {
+          value: 0,
+          order: 6,
+        },
+        relayFeeMaxPercent: {
+          value: 10,
+          order: 7,
+        },
+      },
+    },
 
-    // {
-    //   name: "GasRelayPaymasterFactory",
-    //   version: "dev",
-    //   updateName: [updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS],
-    //   order: 6,
-    //   data: {
-    //     [updateName.DISPATCHER_ADDRESS]: {
-    //       value: null,
-    //       order: 1,
-    //     },
-    //     [updateName.GAS_RELAY_PAYMASTER_LIB_ADDRESS]: {
-    //       value: null,
-    //       order: 2,
-    //     },
-    //   },
-    // },
-    // {
-    //   name: "FundDeployer",
-    //   version: "dev",
-    //   updateName: [updateName.FUND_DEPLOYER_ADDRESS],
-    //   order: 7,
-    //   data: {
-    //     [updateName.DISPATCHER_ADDRESS]: {
-    //       value: null,
-    //       order: 1,
-    //     },
-    //     [updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS]: {
-    //       value: null,
-    //       order: 2,
-    //     },
-    //   },
-    // },
+    {
+      name: "GasRelayPaymasterFactory",
+      version: "dev",
+      updateName: [updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS],
+      order: 6,
+      data: {
+        [updateName.DISPATCHER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        [updateName.GAS_RELAY_PAYMASTER_LIB_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "FundDeployer",
+      version: "dev",
+      updateName: [updateName.FUND_DEPLOYER_ADDRESS],
+      order: 7,
+      data: {
+        [updateName.DISPATCHER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        [updateName.GAS_RELAY_PAYMASTER_FACTORY_ADDRESS]: {
+          value: null,
+          order: 2,
+        },
+      },
+    },
 
     // {
     //   name: "FeeManager",

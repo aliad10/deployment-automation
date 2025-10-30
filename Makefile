@@ -6,6 +6,7 @@ help:
 	@echo "  make deploy <chain_name>     - Deploy contracts to a chain"
 	@echo "  make run deploy <chain_name> - Same as above (alternative syntax)"
 	@echo "  make all deploy <chain_name> - Full pipeline: setup + seed + deploy"
+	@echo "  make setup <chain_name>      - Post-deployment setup only"
 	@echo ""
 	@echo "Cleanup Commands:"
 	@echo "  make clean-db                - Reset database (npx prisma migrate reset)"
@@ -15,6 +16,7 @@ help:
 	@echo "Examples:"
 	@echo "  make deploy sepolia"
 	@echo "  make deploy arbitrum"
+	@echo "  make setup sepolia"
 	@echo "  make clean-all"
 
 # Prevent Make from treating deploy and chain names as targets
@@ -54,8 +56,6 @@ seed-contract:
 	echo "Seeding contracts for chain: $$UPPER"; \
 	NODE_ENV=production node prisma/seed-contract.js $$UPPER
 
-# Setup DB and Prisma (production-safe)
-setup: docker-up prisma-generate prisma-migrate
 
 # Initialize with seeds (extracts chain from command arguments)
 init: setup seed-deployment
@@ -98,6 +98,15 @@ run: deploy
 # Full pipeline: setup -> seed -> deploy
 # Usage: make all deploy <chain_name>
 all: init deploy
+
+# Post-deployment setup only. Usage: make setup <chain_name>
+setup:
+	@CHAIN="$(word 2,$(MAKECMDGOALS))"; \
+	if [ -z "$$CHAIN" ] || [ "$$CHAIN" = "setup" ]; then \
+	  echo "Error: Chain name is required. Usage: make setup <chain_name>"; \
+	  exit 1; \
+	fi; \
+	DEPLOYMENT_NAME="$$CHAIN-deployment" NODE_ENV=production node run/setup/index.js || exit 1
 
 # Cleanup commands
 # Reset database (drops all data and reapplies migrations)
