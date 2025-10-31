@@ -1,5 +1,5 @@
 const { seedArbitrumContracts } = require("./seed-contract-arbitrum");
-const { seedEthContracts } = require("./seed-contract-mainnet");
+const { seedEthContracts } = require("./seed-contract-mainnet-v1");
 const { seedEthSepoliaContracts } = require("./seed-contract-sepolia");
 async function main(chain) {
   if (chain === "ARBITRUM") {
