@@ -793,11 +793,11 @@ const seedEthContracts = async () => {
         },
       },
     },
-   
+
     {
       name: "OneInchV5Adapter",
       version: "dev",
-      order: 50,
+      order: 49,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -809,22 +809,22 @@ const seedEthContracts = async () => {
         },
       },
     },
-   
+
     {
       name: "ManualValueOracleLib",
       version: "dev",
-      order: 57,
+      order: 50,
     },
     {
       name: "ManualValueOracleFactory",
       version: "dev",
-      order: 58,
+      order: 51,
     },
-    
+
     {
       name: "TransferAssetsAdapter",
       version: "dev",
-      order: 61,
+      order: 52,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -835,7 +835,7 @@ const seedEthContracts = async () => {
     {
       name: "DispatcherOwnedBeaconFactory",
       version: "dev",
-      order: 62,
+      order: 53,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -850,7 +850,7 @@ const seedEthContracts = async () => {
     {
       name: "DepositWrapper",
       version: "dev",
-      order: 63,
+      order: 54,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
@@ -867,11 +867,10 @@ const seedEthContracts = async () => {
       },
     },
 
-   
     {
       name: "ComptrollerLib",
       version: "dev",
-      order: 64,
+      order: 55,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -922,7 +921,7 @@ const seedEthContracts = async () => {
     {
       name: "BalancerV2WeightedPoolPriceFeed",
       version: "dev",
-      order: 65,
+      order: 56,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
           value: null,
@@ -946,11 +945,11 @@ const seedEthContracts = async () => {
         },
       },
     },
-   
+
     {
       name: "AaveV2ATokenListOwner",
       version: "dev",
-      order: 71,
+      order: 57,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
@@ -966,17 +965,17 @@ const seedEthContracts = async () => {
         },
       },
     },
-   
+
     {
       name: "ArbitraryLoanTotalNominalDeltaOracleModule",
       version: "dev",
-      order: 76,
+      order: 58,
     },
 
     {
       name: "AssetValueCalculator",
       version: "dev",
-      order: 77,
+      order: 59,
       data: {
         [updateName.VALUE_INTERPRETER_ADDRESS]: {
           value: null,
@@ -988,7 +987,7 @@ const seedEthContracts = async () => {
       name: "ChainlinkLikeWstethPriceFeed",
       version: "dev",
       updateName: [updateName.CHAIN_LINK_LIKE_WSTETH_PRICE_FEED_ADDRESS],
-      order: 78,
+      order: 60,
       data: {
         steth: {
           value: "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
@@ -1003,7 +1002,7 @@ const seedEthContracts = async () => {
     {
       name: "ChainlinkLikeYnEthPriceFeed",
       version: "dev",
-      order: 79,
+      order: 61,
       data: {
         curveYnethWstethPool: {
           value: "0x19B8524665aBAC613D82eCE5D8347BA44C714bDd",
@@ -1019,7 +1018,7 @@ const seedEthContracts = async () => {
       name: "CompoundPriceFeed",
       version: "dev",
       updateName: [updateName.COMPOUND_PRICE_FEED_ADDRESS],
-      order: 80,
+      order: 62,
 
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
@@ -1036,11 +1035,11 @@ const seedEthContracts = async () => {
         },
       },
     },
-    
+
     {
       name: "CompoundV3CTokenListOwner",
       version: "dev",
-      order: 85,
+      order: 63,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
@@ -1060,13 +1059,13 @@ const seedEthContracts = async () => {
     {
       name: "ConvertedQuoteAggregatorFactory",
       version: "dev",
-      order: 86,
+      order: 64,
     },
-   
+
     {
       name: "EnzymeVaultPriceFeed",
       version: "dev",
-      order: 89,
+      order: 65,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -1082,7 +1081,7 @@ const seedEthContracts = async () => {
     {
       name: "EnzymeV4VaultAdapter",
       version: "dev",
-      order: 90,
+      order: 66,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -1101,7 +1100,7 @@ const seedEthContracts = async () => {
     {
       name: "ERC4626Adapter",
       version: "dev",
-      order: 91,
+      order: 67,
       data: {
         [updateName.INTEGRATION_MANAGER_ADDRESS]: {
           value: null,
@@ -1112,17 +1111,17 @@ const seedEthContracts = async () => {
     {
       name: "ERC4626PriceFeed",
       version: "dev",
-      order: 92,
+      order: 68,
     },
     {
       name: "ERC4626RateAggregatorFactory",
       version: "dev",
-      order: 93,
+      order: 69,
     },
     {
       name: "EtherFiEthPriceFeed",
       version: "dev",
-      order: 94,
+      order: 70,
       data: {
         eeth: {
           value: "0x35fA164735182de50811E8e2E824cFb9B6118ac2",
@@ -1137,7 +1136,7 @@ const seedEthContracts = async () => {
     {
       name: "FundDataProviderRouter",
       version: "dev",
-      order: 95,
+      order: 71,
       data: {
         [updateName.FUND_VALUE_CALCULATOR_ROUTER_ADDRESS]: {
           value: null,
@@ -1155,7 +1154,7 @@ const seedEthContracts = async () => {
       updateName: [
         updateName.GATED_REDEMPTION_QUEUE_SHARES_WRAPPER_LIB_ADDRESS,
       ],
-      order: 96,
+      order: 72,
       data: {
         [updateName.GLOBAL_CONFIG_PROXY_ADDRESS]: {
           value: null,
@@ -1171,7 +1170,7 @@ const seedEthContracts = async () => {
       name: "GatedRedemptionQueueSharesWrapperFactory",
       version: "dev",
 
-      order: 97,
+      order: 73,
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
           value: null,
@@ -1183,11 +1182,11 @@ const seedEthContracts = async () => {
         },
       },
     },
-   
+
     {
       name: "PeggedDerivativesPriceFeed",
       version: "dev",
-      order: 106,
+      order: 74,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
           value: null,
@@ -1198,14 +1197,14 @@ const seedEthContracts = async () => {
     {
       name: "PeggedRateDeviationAggregatorFactory",
       version: "dev",
-      order: 107,
+      order: 75,
     },
-   
+
     {
       name: "SharePriceThrottledAssetManagerLib",
       version: "dev",
       updateName: [updateName.SHARE_PRICE_THROTTLED_ASSET_MANAGER_LIB_ADDRESS],
-      order: 109,
+      order: 76,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
@@ -1224,7 +1223,7 @@ const seedEthContracts = async () => {
     {
       name: "SharePriceThrottledAssetManagerFactory",
       version: "dev",
-      order: 110,
+      order: 77,
       data: {
         [updateName.SHARE_PRICE_THROTTLED_ASSET_MANAGER_LIB_ADDRESS]: {
           value: null,
@@ -1236,7 +1235,7 @@ const seedEthContracts = async () => {
     {
       name: "SharesSplitterFactory",
       version: "dev",
-      order: 111,
+      order: 78,
       data: {
         [updateName.GLOBAL_CONFIG_PROXY_ADDRESS]: {
           value: null,
@@ -1248,7 +1247,7 @@ const seedEthContracts = async () => {
       name: "SingleAssetDepositQueueLib",
       version: "dev",
       updateName: [updateName.SINGLE_ASSET_DEPOSIT_QUEUE_LIB_ADDRESS],
-      order: 112,
+      order: 79,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
@@ -1269,7 +1268,7 @@ const seedEthContracts = async () => {
       name: "SingleAssetRedemptionQueueLib",
       version: "dev",
       updateName: [updateName.SINGLE_ASSET_REDEMPTION_QUEUE_LIB_ADDRESS],
-      order: 113,
+      order: 80,
       data: {
         [updateName.ADDRESS_LIST_REGISTRY_ADDRESS]: {
           value: null,
@@ -1289,7 +1288,7 @@ const seedEthContracts = async () => {
     {
       name: "SingleAssetRedemptionQueueFactory",
       version: "dev",
-      order: 114,
+      order: 81,
       data: {
         [updateName.SINGLE_ASSET_REDEMPTION_QUEUE_LIB_ADDRESS]: {
           value: null,
@@ -1301,7 +1300,7 @@ const seedEthContracts = async () => {
     {
       name: "SmarDexUsdnNativeRateUsdAggregator",
       version: "dev",
-      order: 115,
+      order: 82,
       data: {
         usdnProtocolAddress: {
           value: "0x656cB8C6d154Aad29d8771384089be5B5141f01a",
@@ -1313,12 +1312,12 @@ const seedEthContracts = async () => {
     {
       name: "SolvBtcYieldTokenRateUsdAggregatorFactory",
       version: "dev",
-      order: 116,
+      order: 83,
     },
     {
       name: "StaderSDPriceFeed",
       version: "dev",
-      order: 117,
+      order: 84,
       data: {
         sdTokenAddress: {
           value: "0x30D20208d987713f46DFD34EF128Bb16C404D10f",
@@ -1334,11 +1333,11 @@ const seedEthContracts = async () => {
         },
       },
     },
-    
+
     {
       name: "UniswapV2PoolPriceFeed",
       version: "dev",
-      order: 127,
+      order: 85,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
           value: null,
@@ -1357,7 +1356,7 @@ const seedEthContracts = async () => {
     {
       name: "UsdEthSimulatedAggregator",
       version: "dev",
-      order: 128,
+      order: 86,
       data: {
         ethUsdAggregator: {
           value: "0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419",
@@ -1369,7 +1368,7 @@ const seedEthContracts = async () => {
       name: "YearnVaultV2PriceFeed",
       version: "dev",
       updateName: [updateName.YEARN_VAULT_V2_PRICE_FEED_ADDRESS],
-      order: 129,
+      order: 87,
       data: {
         [updateName.FUND_DEPLOYER_ADDRESS]: {
           value: null,
@@ -1381,11 +1380,11 @@ const seedEthContracts = async () => {
         },
       },
     },
-    
+
     {
       name: "AaveV3FlashLoanAssetManagerFactory",
       version: "dev",
-      order: 132,
+      order: 88,
       path: "DispatcherOwnedBeaconFactory",
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
@@ -1402,7 +1401,7 @@ const seedEthContracts = async () => {
     {
       name: "SingleAssetDepositQueueFactory",
       version: "dev",
-      order: 133,
+      order: 89,
       path: "DispatcherOwnedBeaconFactory",
       data: {
         [updateName.DISPATCHER_ADDRESS]: {
@@ -1412,6 +1411,21 @@ const seedEthContracts = async () => {
 
         [updateName.SINGLE_ASSET_DEPOSIT_QUEUE_LIB_ADDRESS]: {
           value: null,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "ThreeOneThirdAdapter",
+      version: "dev",
+      order: 90,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        batchTradeAddress: {
+          value: "0xD20c024560ccA40288C05BAB650ac087ae9b0f6e",
           order: 2,
         },
       },
