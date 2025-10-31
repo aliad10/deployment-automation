@@ -58,7 +58,8 @@ seed-contract:
 
 
 # Initialize with seeds (extracts chain from command arguments)
-init: setup seed-deployment
+# Usage: make init deploy <chain_name>
+init: seed-deployment
 	@CHAIN="$(word 3,$(MAKECMDGOALS))"; \
 	if [ -z "$$CHAIN" ]; then \
 		echo "Error: Chain name is required. Usage: make init deploy <chain_name>"; \
@@ -95,9 +96,43 @@ deploy:
 # Alternative syntax: make run deploy sepolia
 run: deploy
 
-# Full pipeline: setup -> seed -> deploy
+# Full pipeline: docker-up -> prisma-generate -> prisma-migrate -> seed-deployment -> seed-contract -> deploy -> setup
 # Usage: make all deploy <chain_name>
-all: init deploy
+all:
+	@CHAIN="$(word 3,$(MAKECMDGOALS))"; \
+	if [ -z "$$CHAIN" ] || [ "$$CHAIN" = "all" ] || [ "$$CHAIN" = "deploy" ]; then \
+		echo "Error: Chain name is required. Usage: make all deploy <chain_name>"; \
+		echo "Example: make all deploy sepolia"; \
+		exit 1; \
+	fi; \
+	echo "🚀 Starting full deployment pipeline for chain: $$CHAIN"; \
+	echo ""; \
+	echo "📦 Step 1/7: Starting Docker database..."; \
+	$(MAKE) docker-up || exit 1; \
+	echo "⏳ Waiting for database to be ready..."; \
+	sleep 5; \
+	echo ""; \
+	echo "🔧 Step 2/7: Generating Prisma client..."; \
+	$(MAKE) prisma-generate || exit 1; \
+	echo ""; \
+	echo "📊 Step 3/7: Running database migrations..."; \
+	$(MAKE) prisma-migrate || exit 1; \
+	echo ""; \
+	echo "🌱 Step 4/7: Seeding deployment data..."; \
+	$(MAKE) seed-deployment || exit 1; \
+	echo ""; \
+	echo "📝 Step 5/7: Seeding contract data for chain: $$CHAIN..."; \
+	UPPER=$$(printf "%s" "$$CHAIN" | tr '[:lower:]' '[:upper:]'); \
+	NODE_ENV=production node prisma/seed-contract.js $$UPPER || exit 1; \
+	echo ""; \
+	echo "🚀 Step 6/7: Deploying contracts..."; \
+	DEPLOYMENT_NAME="$$CHAIN-deployment"; \
+	NODE_ENV=production node index.js $$DEPLOYMENT_NAME || exit 1; \
+	echo ""; \
+	echo "⚙️  Step 7/7: Running post-deployment setup..."; \
+	DEPLOYMENT_NAME="$$CHAIN-deployment" NODE_ENV=production node run/setup/index.js || exit 1; \
+	echo ""; \
+	echo "✅ Full deployment pipeline completed successfully!"
 
 # Post-deployment setup only. Usage: make setup <chain_name>
 setup:
