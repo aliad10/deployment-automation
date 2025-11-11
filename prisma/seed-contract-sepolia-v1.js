@@ -8,6 +8,12 @@ const seedEthSepoliaContracts = async () => {
   console.log("Seeding contracts...");
   const contracts = [
     {
+      name: "AcceptsContractSignaturesForwarder",
+      version: "dev",
+      updateName: [updateName.ACCEPT_CONTRACT_SIGNATURES_FORWARDER_ADDRESS],
+      order: 0,
+    },
+    {
       name: "Dispatcher",
       version: "dev",
       updateName: [updateName.DISPATCHER_ADDRESS],
@@ -65,8 +71,8 @@ const seedEthSepoliaContracts = async () => {
           value: constructorData.ETHEREUM.RELAY_HUB, // reza
           order: 2,
         },
-        trustedForwarder: {
-          value: constructorData.ETHEREUM.TRUSTED_FORWARDER, // reza
+        [updateName.ACCEPT_CONTRACT_SIGNATURES_FORWARDER_ADDRESS]: {
+          value: null,
           order: 3,
         },
         depositCooldown: {

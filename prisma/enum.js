@@ -1,4 +1,6 @@
 const updateName = {
+  ACCEPT_CONTRACT_SIGNATURES_FORWARDER_ADDRESS:
+    "acceptsContractSignaturesForwarderAddress",
   DISPATCHER_ADDRESS: "dispatcherAddress",
   GAS_RELAY_PAYMASTER_LIB_ADDRESS: "gasRelayPaymasterLibAddress",
   GAS_RELAY_PAYMASTER_FACTORY_ADDRESS: "gasRelayPaymasterFactoryAddress",
