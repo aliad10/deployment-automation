@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const { updateName, constructorDataUpdateName } = require("./enum");
 const prisma = new PrismaClient();
 const { constructorData } = require("../consts");
+const { ethers } = require("ethers");
 
 const seedEthContracts = async () => {
   console.log("Seeding contracts...");
@@ -73,7 +74,7 @@ const seedEthContracts = async () => {
           order: 4,
         },
         depositMaxTotal: {
-          value: 1000000000000000000,
+          value: ethers.parseEther("1"),
           order: 5,
         },
         relayFeeMaxBase: {
@@ -325,33 +326,33 @@ const seedEthContracts = async () => {
         },
       },
     },
-    {
-      name: "BalancerV2GaugeTokenPriceFeed",
-      version: "dev",
-      order: 20,
-    },
-    {
-      name: "BalancerV2StablePoolPriceFeed",
-      version: "dev",
-      order: 21,
-      data: {
-        [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: null,
-          order: 1,
-        },
-        balancerVault: {
-          value: "0xBA12222222228d8Ba445958a75a0704d566BF2C8",
-          order: 2,
-        },
-        poolFactories: {
-          value: [
-            "0x67d27634E44793fE63c467035E31ea8635117cd4",
-            "0xdba127fBc23fb20F5929C546af220A991b5C6e01",
-          ],
-          order: 3,
-        },
-      },
-    },
+    // {
+    //   name: "BalancerV2GaugeTokenPriceFeed",
+    //   version: "dev",
+    //   order: 20,
+    // },
+    // {
+    //   name: "BalancerV2StablePoolPriceFeed",
+    //   version: "dev",
+    //   order: 21,
+    //   data: {
+    //     [updateName.FUND_DEPLOYER_ADDRESS]: {
+    //       value: null,
+    //       order: 1,
+    //     },
+    //     balancerVault: {
+    //       value: "0xBA12222222228d8Ba445958a75a0704d566BF2C8",
+    //       order: 2,
+    //     },
+    //     poolFactories: {
+    //       value: [
+    //         "0x67d27634E44793fE63c467035E31ea8635117cd4",
+    //         "0xdba127fBc23fb20F5929C546af220A991b5C6e01",
+    //       ],
+    //       order: 3,
+    //     },
+    //   },
+    // },
     {
       name: "AaveV3FlashLoanAssetManagerLib",
       version: "dev",
@@ -857,7 +858,7 @@ const seedEthContracts = async () => {
           order: 1,
         },
         allowedExchangesListId: {
-          value: 553, //todo: check number
+          value: 5, //todo: check number
           order: 2,
         },
         wrappedNativeAssetAddress: {
@@ -919,33 +920,33 @@ const seedEthContracts = async () => {
         },
       },
     },
-    {
-      name: "BalancerV2WeightedPoolPriceFeed",
-      version: "dev",
-      order: 65,
-      data: {
-        [updateName.FUND_DEPLOYER_ADDRESS]: {
-          value: null,
-          order: 1,
-        },
-        [updateName.VALUE_INTERPRETER_ADDRESS]: {
-          value: null,
-          order: 2,
-        },
-        intermediaryAssetAddress: {
-          value: constructorData.ETHEREUM.WETH,
-          order: 3,
-        },
-        balancerVaultAddress: {
-          value: "0xBA12222222228d8Ba445958a75a0704d566BF2C8",
-          order: 4,
-        },
-        poolFactories: {
-          value: [],
-          order: 5,
-        },
-      },
-    },
+    // {
+    //   name: "BalancerV2WeightedPoolPriceFeed",
+    //   version: "dev",
+    //   order: 65,
+    //   data: {
+    //     [updateName.FUND_DEPLOYER_ADDRESS]: {
+    //       value: null,
+    //       order: 1,
+    //     },
+    //     [updateName.VALUE_INTERPRETER_ADDRESS]: {
+    //       value: null,
+    //       order: 2,
+    //     },
+    //     intermediaryAssetAddress: {
+    //       value: constructorData.ETHEREUM.WETH,
+    //       order: 3,
+    //     },
+    //     balancerVaultAddress: {
+    //       value: "0xBA12222222228d8Ba445958a75a0704d566BF2C8",
+    //       order: 4,
+    //     },
+    //     poolFactories: {
+    //       value: [],
+    //       order: 5,
+    //     },
+    //   },
+    // },
    
     {
       name: "AaveV2ATokenListOwner",
@@ -1212,7 +1213,7 @@ const seedEthContracts = async () => {
           order: 1,
         },
         gsnTrustedForwardersAddressListId: {
-          value: 598, //todo : check number
+          value: 6, //todo : check number
           order: 2,
         },
         [updateName.FUND_VALUE_CALCULATOR_ROUTER_ADDRESS]: {
@@ -1260,7 +1261,7 @@ const seedEthContracts = async () => {
         },
 
         gsnTrustedForwardersAddressListId: {
-          value: 598, //todo: check number
+          value: 6, //todo: check number
           order: 3,
         },
       },
@@ -1277,7 +1278,7 @@ const seedEthContracts = async () => {
         },
 
         gsnTrustedForwardersAddressListId: {
-          value: 598, //todo: check number
+          value: 6, //todo: check number
           order: 2,
         },
         [updateName.GLOBAL_CONFIG_PROXY_ADDRESS]: {
@@ -1412,6 +1413,21 @@ const seedEthContracts = async () => {
 
         [updateName.SINGLE_ASSET_DEPOSIT_QUEUE_LIB_ADDRESS]: {
           value: null,
+          order: 2,
+        },
+      },
+    },
+    {
+      name: "ThreeOneThirdAdapter",
+      version: "dev",
+      order: 68,
+      data: {
+        [updateName.INTEGRATION_MANAGER_ADDRESS]: {
+          value: null,
+          order: 1,
+        },
+        batchTradeAddress: {
+          value: "0xD20c024560ccA40288C05BAB650ac087ae9b0f6e",
           order: 2,
         },
       },

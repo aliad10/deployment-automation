@@ -1,9 +1,10 @@
 const { callContract, resolveAddressFromDb, colors } = require("../core/runner");
 require("dotenv").config();
 
-// Minimal ABI for IAddressListRegistry.addToList(uint256,address[])
+// Minimal ABI for IAddressListRegistry
 const REGISTRY_ABI = [
   "function addToList(uint256 listId, address[] items) external",
+  "function getListUpdateType(uint256 _id) external view returns (uint8 updateType_)",
 ];
 
 // Static values matching addToList.s.sol
@@ -14,6 +15,11 @@ const ITEMS = [
 
 async function runAddToList() {
   const registryAddress = await resolveAddressFromDb({ contractName: "AddressListRegistry" });
+  const { getWalletAndProvider, getContract } = require("../core/runner");
+  
+  // Check UpdateType before attempting to add
+  const { wallet } = await getWalletAndProvider();
+  const contract = getContract(registryAddress, REGISTRY_ABI, wallet);
 
   console.log(colors.cyan(`AddressListRegistry: ${registryAddress}`));
   console.log(colors.cyan(`List ID: ${LIST_ID}`));

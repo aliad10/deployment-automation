@@ -859,7 +859,7 @@ const seedEthSepoliaContracts = async () => {
           order: 1,
         },
         allowedExchangesListId: {
-          value: 553, //todo: check number
+          value: 5, //todo: check number
           order: 2,
         },
         wrappedNativeAssetAddress: {

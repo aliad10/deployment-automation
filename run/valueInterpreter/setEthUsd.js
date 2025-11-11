@@ -1,4 +1,5 @@
-const { callContract, resolveAddressFromDb, colors } = require("../core/runner");
+const { callContract, resolveAddressFromDb, colors, resolveRpcUrl } = require("../core/runner");
+const { constructorData } = require("../../consts");
 require("dotenv").config();
 
 // Minimal ABI for IValueInterpreter.setEthUsdAggregator(address)
@@ -6,16 +7,27 @@ const VALUE_INTERPRETER_ABI = [
   "function setEthUsdAggregator(address aggregator) external",
 ];
 
-async function runSetEthUsd({ aggregator } = {}) {
+async function getChainFromRpc() {
+  const rpcUrl = await resolveRpcUrl();
+  if (rpcUrl.includes("sepolia")) return "SEPOLIA";
+  if (rpcUrl.includes("arbitrum")) return "ARBITRUM";
+  return "ETHEREUM"; // default
+}
+
+async function runSetEthUsd() {
   const resolvedValueInterpreter = await resolveAddressFromDb({ contractName: "ValueInterpreter" });
-
-  if (!aggregator) {
-    throw new Error("Provide aggregator address as first CLI argument");
-  }
-
   console.log(colors.cyan(`ValueInterpreter: ${resolvedValueInterpreter}`));
+  
+  // Determine chain from RPC URL
+  const chain = await getChainFromRpc();
+  const aggregator = constructorData[chain]?.ETH_USD_AGGREGATOR;
+  
+  if (!aggregator) {
+    throw new Error(`ETH_USD_AGGREGATOR not found for chain: ${chain}`);
+  }
+  
+  console.log(colors.cyan(`Chain: ${chain}`));
   console.log(colors.cyan(`ETH/USD Aggregator: ${aggregator}`));
-
   const { txHash, receipt, rpcUrl, staticResult, estimatedGas, simulation, explorerUrl, noOp } = await callContract({
     contractAddress: resolvedValueInterpreter,
     abi: VALUE_INTERPRETER_ABI,
@@ -27,6 +39,9 @@ async function runSetEthUsd({ aggregator } = {}) {
   console.log(colors.cyan(`Using RPC: ${rpcUrl}`));
   if (simulation?.reverted) {
     console.log(colors.red(`Simulation reverted: ${simulation.reason || '<no reason provided>'}`));
+    if (simulation.data) {
+      console.log(colors.red(`Error data: ${simulation.data}`));
+    }
     if (noOp) {
       console.log(colors.yellow("No-op: ETH/USD aggregator already set. Skipping transaction."));
       return;

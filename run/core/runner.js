@@ -61,8 +61,25 @@ async function callContract({
       }
     } catch (e) {
       // Parse revert reason (ethers v6 error shape)
-      const reason = e?.reason || e?.revert?.args?.[0] || e?.shortMessage || e?.message;
+      let reason = e?.reason || e?.revert?.args?.[0] || e?.shortMessage || e?.message;
       const data = e?.data || e?.revert || undefined;
+      
+      // Try to extract more detailed error information
+      if (!reason || reason === 'missing revert data') {
+        // Try to get error from error object properties
+        if (e?.error?.data) {
+          reason = `Error data: ${e.error.data}`;
+        } else if (e?.error?.message) {
+          reason = e.error.message;
+        } else if (e?.code) {
+          reason = `Error code: ${e.code}`;
+        } else if (typeof e === 'string') {
+          reason = e;
+        } else {
+          reason = `Transaction would revert (no detailed reason available). Full error: ${JSON.stringify(e, Object.getOwnPropertyNames(e))}`;
+        }
+      }
+      
       simulation = { reverted: true, reason, data };
       if (failOnRevert) {
         const msg = reason ? `${reason}` : `${e}`;

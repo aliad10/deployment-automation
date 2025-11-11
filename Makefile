@@ -25,7 +25,19 @@ help:
 
 # Core infra (production)
 docker-up:
-	@NODE_ENV=production npm run docker:up
+	@echo "Checking Docker daemon status..."; \
+	if ! docker info > /dev/null 2>&1; then \
+		echo ""; \
+		echo "❌ Error: Docker daemon is not running."; \
+		echo "Please start Docker Desktop or Docker daemon and try again."; \
+		echo ""; \
+		echo "On macOS, you can start Docker Desktop from:"; \
+		echo "  Applications > Docker"; \
+		echo ""; \
+		exit 1; \
+	fi; \
+	echo "✅ Docker daemon is running"; \
+	NODE_ENV=production npm run docker:up
 
 # Stop and remove Docker containers
 docker-down:
@@ -128,11 +140,11 @@ all:
 	echo "🚀 Step 6/7: Deploying contracts..."; \
 	DEPLOYMENT_NAME="$$CHAIN-deployment"; \
 	NODE_ENV=production node index.js $$DEPLOYMENT_NAME || exit 1; \
-	echo ""; \
-	echo "⚙️  Step 7/7: Running post-deployment setup..."; \
-	DEPLOYMENT_NAME="$$CHAIN-deployment" NODE_ENV=production node run/setup/index.js || exit 1; \
-	echo ""; \
-	echo "✅ Full deployment pipeline completed successfully!"
+	# echo ""; \
+	# echo "⚙️  Step 7/7: Running post-deployment setup..."; \
+	# DEPLOYMENT_NAME="$$CHAIN-deployment" NODE_ENV=production node run/setup/index.js || exit 1; \
+	# echo ""; \
+	# echo "✅ Full deployment pipeline completed successfully!"
 
 # Post-deployment setup only. Usage: make setup <chain_name>
 setup:
